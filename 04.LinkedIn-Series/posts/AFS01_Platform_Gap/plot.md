@@ -12,6 +12,7 @@ recommended: B
 ### Plot A — Layer Coverage Heatmap (Vertical Stack)
 
 6 horizontal bars stacked vertically (L1 at bottom, L6 at top). Each bar is a gradient from green (strong) to red (absent):
+
 - L1: Full green (strong)
 - L2: Yellow-green (partial)
 - L3: Green (good)

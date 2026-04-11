@@ -7,9 +7,12 @@ tone: "D3 #2 — Curious Builder"
 word_count: ~270
 hashtags: 5
 art_status: IMAGE_PENDING
-status: SHELVED
+status: SUPERSEDED
 shelved_reason: "Author not ready to release. Codex rewrite saved. Undated backlog."
+superseded_by: "AFS03 (7-Stratum debut in LinkedIn series — Apr 14, 2026)"
 ---
+
+> **SUPERSEDED (2026-04-08):** The 6-layer model was replaced by the 7-stratum model (v1.0). The AFS series Post 3 ("Where Governance Actually Lives") serves as the public framework debut using the canonical 7-stratum vocabulary. This post should not be published as-is. Salvageable lines may be cannibalized into Post 3.
 
 # APR004 — {a}OS 6-Layer AI/ML Model: First Public Release
 
@@ -52,7 +55,7 @@ Version 0.1 is the start.
 
 Next up: canonical glossary, vendor crosswalks, rollout guidance, and reference patterns.
 
-#AIArchitecture #AgenticAI #EnterpriseAI #AIGovernance #MLOps
+# AIArchitecture #AgenticAI #EnterpriseAI #AIGovernance #MLOps
 
 ---
 

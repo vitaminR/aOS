@@ -12,6 +12,7 @@ status: "draft:COMPLETE"
 art_status: "IMAGE_PENDING"
 character: "Analyst"
 word_count: 285
+compatibility_note: "The 'six layers' in this post are narrative shorthand (deployment checkpoints), not the canonical {a}OS model. If resurrected, rewrite to use 7-stratum vocabulary or explicitly label as 'six deployment checkpoints' (not {a}OS strata)."
 publish:
   banner_text: "The Deployment Deficit"
 ---

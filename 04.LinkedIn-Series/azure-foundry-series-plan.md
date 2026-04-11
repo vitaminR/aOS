@@ -1,26 +1,27 @@
 # Azure AI Foundry × {a}OS — LinkedIn Training Series Design
 
 > **Research date:** 2026-04-06
-> **Revised:** 2026-04-06 (red-team corrections applied)
+> **Revised:** 2026-04-08 (7-stratum model refresh; new cadence; universal audience rebalance; red-team corrections retained)
 > **Author:** Research brief for internal planning — not for external distribution
-> **Scope:** Azure AI Foundry enterprise/defense deployment → {a}OS mapping → LinkedIn series design
-> **Audience scope:** 500–3,000 employee defense contractors, 10–50 engineers touching the AI platform, $5M–$20M annual Azure spend
+> **Scope:** Azure AI Foundry enterprise deployment → {a}OS 7-Stratum mapping → LinkedIn series design
+> **Reference model:** Agentic Reference Stack v1.0 (7 strata, locked vocabulary)
+> **Audience scope:** Organizations from 10-person startups to 3,000-employee enterprises deploying AI on Azure — with regulated industries (defense, healthcare, finance) as credibility proof points
 
 ---
 
 ## 1. Executive Summary
 
-Azure AI Foundry is Microsoft's rebranded, consolidated AI platform — and it is both more capable and more incomplete than its marketing suggests. For a medium-sized defense contractor, Foundry provides a genuine operational foundation for enterprise AI: model hosting, identity, content safety, agent orchestration, and evaluation are real and usable today. But the platform has significant gaps in network isolation, observability in private networks, Gov cloud feature parity, cost governance, and multi-agent maturity that require custom engineering to close.
+Azure AI Foundry is Microsoft's rebranded, consolidated AI platform — and it is both more capable and more incomplete than its marketing suggests. For any organization building production AI, Foundry provides a genuine operational foundation: model hosting, identity, content safety, agent orchestration, and evaluation are real and usable today. But the platform has significant gaps in network isolation, observability in private networks, cost governance, and multi-agent maturity that require custom engineering to close — whether you're a 10-person team shipping your first agent or a 3,000-person enterprise with compliance requirements.
 
-**The core finding:** Foundry solves roughly 60% of what a defense contractor needs for a production AI platform. The remaining 40% — governance enforcement, end-to-end auditability, network-isolated observability, cost chargeback, disaster recovery, and classified-environment patterns — must be built around Foundry, not inside it.
+**The core finding:** Foundry solves the majority of what you need to start building. What it doesn't solve — governance enforcement, end-to-end auditability, cost chargeback, and operational safety — is where most enterprise AI projects stall. That gap is architectural, not accidental.
 
-This maps directly to the {a}OS 6-Layer model. Foundry is strong at L1 (models/compute), partial at L2-L4 (context/agents/tools), weak at L5 (orchestration), and absent at L6 (governance/oversight). The {a}OS framework becomes the teaching vehicle that explains where Foundry fits and where custom platform engineering must begin.
+This maps directly to the {a}OS 7-Stratum model. Foundry is strong at L1 (Models & Infrastructure), good at L3 (Execution & Interfaces), partial at L2 and L4 (Knowledge, Orchestration), and structurally weak at L5–L7 (Observability, Governance, Experience). The 7-stratum model reveals three separate gap strata where the old 6-layer model showed only one.
 
-**Series recommendation:** A **12-post flagship series** over 3 weeks (Apr 7–25), alternating leadership and technical posts, with {a}OS introduced by Post 3 (not Post 6). This length sustains LinkedIn organic reach at 4 posts/week without self-cannibalization, while delivering enough depth for authority-building and reusable training material.
+**Series recommendation:** A **12-post flagship series** over 3 weeks (Apr 8–29), alternating leadership and technical posts, with {a}OS introduced by Post 3 (not Post 6). This length sustains LinkedIn organic reach at 4 posts/week without self-cannibalization, while delivering enough depth for authority-building and reusable training material.
 
-**Audience scope:** Medium-sized = 500–3,000 employees, 10–50 engineers touching the AI platform, $5M–$20M annual Azure spend. All architecture recommendations are tested against this org size.
+**Audience scope:** Universal — from small teams shipping their first AI feature to large regulated enterprises. Architecture recommendations work at any scale; regulated-industry examples (defense, healthcare, finance) serve as credibility proof points, not audience filters.
 
-**Red-team note:** The "60%" framing is a heuristic, not a measured finding. Use it as a narrative device — do not present it as research. The defense compliance content (CMMC, ITAR, IL4/5) is surface-level; deepen it before using in internal training or architecture decisions.
+**Red-team note:** The "60%" framing is a heuristic, not a measured finding. Use it as a narrative device — do not present it as research. Regulated-environment content (CMMC, ITAR, IL4/5, HIPAA, SOC2) adds depth; keep it as supporting evidence, not primary frame.
 
 ---
 
@@ -48,7 +49,7 @@ The underlying resource model changed:
 | Management | Azure ML workspace patterns | Cognitive Services account patterns |
 | Portal | Foundry (classic) at ai.azure.com | Foundry (new) — toggle in portal |
 
-**This matters for defense contractors:** Two resource models coexist. The new model is where Microsoft is investing, but the classic model has more mature network isolation support. Teams starting today face a migration decision on day one.
+**This matters for enterprises:** Two resource models coexist. The new model is where Microsoft is investing, but the classic model has more mature network isolation support. Teams starting today face a migration decision on day one.
 
 ### 2.3 Identity and RBAC
 
@@ -59,9 +60,9 @@ Four Foundry-specific roles:
 | Azure AI User | Least-privilege developer role (data actions only) |
 | Azure AI Project Manager | User management within projects |
 | Azure AI Account Owner | Resource creation, model management, no data actions |
-| Azure AI Owner | Full control (dangerous in defense environments) |
+| Azure AI Owner | Full control (dangerous in any production environment) |
 
-**Key insight:** `Azure AI User` is the right default for developers. `Azure AI Owner` should never be assigned in defense environments without explicit justification. Custom roles with granular `dataActions` are supported and recommended.
+**Key insight:** `Azure AI User` is the right default for developers. `Azure AI Owner` should never be assigned without explicit justification — it's a loaded gun in any environment handling customer data. Custom roles with granular `dataActions` are supported and recommended.
 
 Managed identities work at both resource and project scope. Entra ID is strongly recommended over API key auth (keys grant blanket access with no role restrictions).
 
@@ -88,11 +89,11 @@ Three isolation dimensions: inbound (private endpoints), outbound from resource 
 
 - Bing Grounding, Web Search, SharePoint Grounding
 
-This is the single largest operational risk for defense contractors. The marketing says "end-to-end network isolation." The reality is that multiple critical features are explicitly unsupported in isolated environments.
+This is the single largest operational risk for any team that needs data to stay inside their network. The marketing says "end-to-end network isolation." The reality is that multiple critical features are explicitly unsupported in isolated environments.
 
-### 2.5 Gov Cloud Reality
+### 2.5 Gov Cloud Reality (Regulated Industry Callout)
 
-Azure OpenAI is available in Azure Government (FedRAMP High, IL4, IL5). But:
+Azure OpenAI is available in Azure Government (FedRAMP High, IL4, IL5). This matters for defense, federal, and some healthcare/finance organizations. Key constraints:
 
 - **Model availability is significantly reduced** (no GPT-5.4, limited embedding models, gpt-4.1 context limited to 300K vs 1M)
 - **No batch deployments** in Gov cloud
@@ -119,14 +120,14 @@ The platform itself is free to explore. Costs come from model consumption, stora
 | Agent Type | Status | VNet Support | Production Readiness |
 |-----------|--------|:---:|:---:|
 | Prompt Agents | GA | Yes | Ready |
-| Workflow Agents | Preview | Partial | Not ready for defense |
-| Hosted Agents | Preview | No | Not ready for defense |
+| Workflow Agents | Preview | Partial | Not ready for regulated production |
+| Hosted Agents | Preview | No | Not ready for regulated production |
 
-Agent identity (per-agent Entra identity) is a strong feature. Publishing to Teams/M365 requires public endpoints (not viable for most defense workloads).
+Agent identity (per-agent Entra identity) is a strong feature. Publishing to Teams/M365 requires public endpoints (a constraint for security-conscious deployments).
 
 ### 2.8 Observability
 
-OpenTelemetry-based tracing is GA for prompt agents. Application Insights integration works — **unless you have private App Insights, in which case tracing breaks entirely.** This is a hard blocker for defense contractors who require both network isolation and observability.
+OpenTelemetry-based tracing is GA for prompt agents. Application Insights integration works — **unless you have private App Insights, in which case tracing breaks entirely.** This is a hard blocker for any team that needs both network isolation and observability — which is most serious production deployments, not just regulated industries.
 
 Built-in evaluation framework (quality, safety, task adherence evaluators) is genuinely useful and can integrate into CI/CD via GitHub Actions.
 
@@ -134,10 +135,10 @@ Built-in evaluation framework (quality, safety, task adherence evaluators) is ge
 
 ## 3. Architecture Implications
 
-### 3.1 Reference Architecture for a Medium-Sized Defense Contractor
+### 3.1 Reference Architecture for a Production Enterprise
 
 ```
-Azure Government Subscription
+Azure Subscription (Commercial or Government)
 ├── RG: ai-networking
 │   ├── Hub VNet (Azure Firewall, DNS Private Zones)
 │   ├── Spoke VNet: ai-prod (peered to hub)
@@ -174,13 +175,13 @@ Azure Government Subscription
 ### 3.2 Key Architecture Decisions
 
 1. **Separate Foundry resources per environment** — projects within a single resource share networking and cannot serve as environment boundaries
-2. **Use the classic resource model for network-isolated production** until the new Foundry model fully supports VNet isolation in Gov cloud
+2. **Use the classic resource model for network-isolated production** until the new Foundry model fully supports VNet isolation
 3. **Deploy via Bicep/CLI, not the portal** — the new portal does not support network isolation workflows
 4. **Use Azure API Management as an AI Gateway** for cost metering, rate limiting, and chargeback that Foundry lacks natively
 5. **Architect observability workaround** — if private App Insights breaks tracing, consider a non-private App Insights in a peered network with restricted access, or export traces to a separate Log Analytics workspace
 6. **Block Bing/Web Search/SharePoint tools via Azure Policy** in production — they route over public internet
 7. **Start with prompt agents only** — workflow and hosted agents are preview and lack VNet support
-8. **Plan for two resource models** — use classic for production stability, new model for dev/evaluation, and plan migration when Gov cloud support matures
+8. **Plan for two resource models** — use classic for production stability, new model for dev/evaluation, and plan migration when support matures
 
 ### 3.3 Infrastructure as Code
 
@@ -189,7 +190,7 @@ Bicep is the primary IaC path. Microsoft provides production-ready templates:
 - `00-basic` — Simple resource + project
 - `19-hybrid-private-resources-agent-setup` — Network-isolated agent setup with BYO storage
 
-**Recommendation:** Fork the `azure-ai-foundry/foundry-samples` Bicep templates, customize for Gov cloud and defense-specific policies, and maintain as an internal module.
+**Recommendation:** Fork the `azure-ai-foundry/foundry-samples` Bicep templates, customize for your organization's policies and compliance requirements, and maintain as an internal module.
 
 ---
 
@@ -199,11 +200,11 @@ Bicep is the primary IaC path. Microsoft provides production-ready templates:
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|:---:|:---:|------------|
-| New Foundry model not available in Gov cloud | High | Critical | Start with classic model; plan migration |
+| New Foundry model not available in Gov cloud | High | Critical | Start with classic model; plan migration. *Regulated-industry callout.* |
 | Network-isolated tracing breaks observability | Confirmed | High | Architect App Insights in peered non-private network |
 | Team assumes VNet isolation = full isolation | High | High | Document which tools go over public internet; block via Policy |
 | Two resource models create migration debt | Confirmed | Medium | Choose one model per environment; don't mix |
-| Model availability in Gov lags behind commercial | Confirmed | Medium | Build model abstraction layer; don't hardcode model names |
+| Model availability in Gov lags behind commercial | Confirmed | Medium | Build model abstraction layer; don't hardcode model names. *Regulated-industry callout.* |
 | Cost runaway from unmetered model usage | Medium | Medium | APIM gateway with token budgets from day one |
 | Agent features mature and break during preview | Medium | Medium | Only use GA features in production environments |
 
@@ -211,11 +212,11 @@ Bicep is the primary IaC path. Microsoft provides production-ready templates:
 
 1. **Treating projects as environment isolation** — they share parent networking
 2. **Using the new portal for network-isolated setup** — it doesn't work; must use classic/CLI/SDK
-3. **Assuming "Azure OpenAI in Gov" means "all Foundry features in Gov"** — Foundry is broader than AOAI
+3. **Assuming "Azure OpenAI in Gov" means "all Foundry features in Gov"** — Foundry is broader than AOAI *(regulated-industry callout)*
 4. **Deploying hosted agents in production** — no VNet support, container runtime is preview
 5. **Skipping APIM** — without it, no cost enforcement, no rate limiting, no cross-model governance
 6. **Using API keys instead of Entra ID** — keys bypass RBAC entirely
-7. **Not planning for the model you can't get in Gov** — build for model portability from day one
+7. **Not planning for model portability** — build for the model you might lose access to, not just the one you have today
 
 ### 4.3 What Is Likely Marketing vs. Operationally Real
 
@@ -226,53 +227,60 @@ Bicep is the primary IaC path. Microsoft provides production-ready templates:
 | "End-to-end network isolation" | Multiple confirmed gaps. New portal doesn't support it. |
 | "Unified platform" | Two portals, two resource models. Unification is in progress, not complete. |
 | "Enterprise-grade security" | Tracing + private networking = broken. Hosted agents have no VNet. |
-| "Model Router optimizes cost" | Poorly documented. No transparency into routing decisions. Not auditable for defense. |
+| "Model Router optimizes cost" | Poorly documented. No transparency into routing decisions. Not auditable for compliance-conscious orgs. |
 | "Foundry IQ — enterprise RAG" | Preview. No production track record. |
 
 ---
 
 ## 5. {a}OS Mapping
 
-### 5.1 Where Foundry Sits in the {a}OS 6-Layer Model
+### 5.1 Where Foundry Sits in the {a}OS 7-Stratum Model
 
-| {a}OS Layer | Foundry Coverage | What Foundry Provides | What Foundry Does NOT Solve |
+| {a}OS Stratum | Foundry Coverage | What Foundry Provides | What Foundry Does NOT Solve |
 |:-----------:|:---:|---|---|
-| **L6** Human Intent, Policy & Oversight | **Weak** | Content Safety filters, basic RBAC | Policy enforcement, approval workflows, human-in-the-loop gates, governance dashboards, audit trail aggregation, compliance reporting |
-| **L5** Orchestration, Workflows & Routing | **Partial** | Workflow agents (preview), model router | Production-grade multi-agent orchestration, deterministic routing, circuit breakers, load balancing, cross-system workflow coordination |
-| **L4** Agent Logic, Skills & Execution Reasoning | **Good** | Prompt agents (GA), agent identity, versioning, publishing | Custom reasoning frameworks, complex skill chaining, domain-specific agent patterns |
-| **L3** Tools, Interfaces & External Actions | **Good** | Tool catalog, MCP support, Logic Apps connectors, function calling | Custom tool governance, tool-level access control, enterprise integration patterns beyond connectors |
-| **L2** Context, Memory & Semantic State | **Partial** | Agent memory, file search, Foundry IQ (preview), AI Search integration | Production RAG governance, context window management, memory compaction, cross-agent shared state |
-| **L1** Models, Data & Compute Foundation | **Strong** | Model catalog, fine-tuning, PTU deployments, CMK encryption, compute management | Custom model training (needs Azure ML), on-prem compute, classified data pipelines, full Gov cloud parity |
+| **L7** Experience & Intent | **Partial** | Foundry Portal (classic + new), agent publishing to Teams/M365/BizChat, API surface, playground | Custom UX, intent disambiguation, approval surfaces, escalation flows. New portal doesn't support network isolation. Publishing requires public endpoints. |
+| **L6** Governance & Trust | **Partial** | Content Safety (GA), RBAC (GA), Azure Policy (infra), Defender, groundedness detection | Approval workflows, governance dashboard, aggregated audit trail, compliance reporting, agent behavior policy, cost governance, token budget enforcement |
+| **L5** Observability & Evaluation | **Partial** | OpenTelemetry tracing (GA for prompt agents), Application Insights, built-in evaluators, CI/CD gates, continuous evaluation | **Tracing breaks with private App Insights.** End-to-end audit trail, custom dashboarding, cost-to-evaluation visibility, traces preview for non-prompt agents |
+| **L4** Orchestration & Decisioning | **Partial** | Workflow agents (preview), Model Router, prompt agent orchestration (GA), agent identity, versioning | Production multi-agent orchestration, deterministic routing, circuit breakers, load balancing, cross-system workflow coordination |
+| **L3** Execution & Interfaces | **Good** | Function calling (GA), MCP (GA), Code Interpreter, tool catalog, Logic Apps connectors | Tool-level governance, VNet-incompatible tools (File Search, OpenAPI, Azure Functions, Browser), enterprise integration beyond connectors |
+| **L2** Knowledge & Memory | **Partial** | Agent memory (GA), AI Search (GA), Foundry IQ (preview), Document Intelligence | Cross-agent shared state, memory compaction/lifecycle, production RAG governance, context window management |
+| **L1** Models & Infrastructure | **Strong** | Model catalog (GA), fine-tuning (GA), PTU, CMK, Foundry Local, managed compute | Custom model training (needs Azure ML), cross-region DR, Gov cloud gaps, hybrid/classified compute |
 
 ### 5.2 Visual Summary
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ L6  GOVERNANCE / OVERSIGHT                               │
-│     ⚠️ Foundry: Content Safety only                      │
+│ L7  EXPERIENCE & INTENT                                  │
+│     ⚠️ Foundry: Portal + agent publishing                │
+│     🔧 YOU BUILD: Custom UX, approval surfaces,          │
+│        intent disambiguation, escalation flows            │
+├─────────────────────────────────────────────────────────┤
+│ L6  GOVERNANCE & TRUST                                   │
+│     ⚠️ Foundry: Content Safety, RBAC, Azure Policy       │
 │     🔧 YOU BUILD: Policy engine, approval gates,         │
 │        audit aggregation, compliance reporting            │
 ├─────────────────────────────────────────────────────────┤
-│ L5  ORCHESTRATION / ROUTING                              │
-│     ⚠️ Foundry: Workflow agents (preview)                │
+│ L5  OBSERVABILITY & EVALUATION                           │
+│     ⚠️ Foundry: Tracing (GA), evaluators (GA)            │
+│     🔧 YOU BUILD: Private network workaround,            │
+│        custom dashboards, end-to-end audit trail          │
+├─────────────────────────────────────────────────────────┤
+│ L4  ORCHESTRATION & DECISIONING                          │
+│     ⚠️ Foundry: Workflow agents (preview), prompt (GA)   │
 │     🔧 YOU BUILD: Production orchestration, circuit       │
 │        breakers, deterministic routing, APIM gateway      │
 ├─────────────────────────────────────────────────────────┤
-│ L4  AGENT LOGIC / SKILLS                                 │
-│     ✅ Foundry: Prompt agents (GA), hosted agents         │
-│     🔧 YOU BUILD: Domain-specific agent patterns          │
-├─────────────────────────────────────────────────────────┤
-│ L3  TOOLS / INTERFACES                                   │
-│     ✅ Foundry: Tool catalog, MCP, Logic Apps             │
+│ L3  EXECUTION & INTERFACES                               │
+│     ✅ Foundry: Function calling, MCP, Code Interpreter   │
 │     🔧 YOU BUILD: Tool governance, access control         │
 ├─────────────────────────────────────────────────────────┤
-│ L2  CONTEXT / MEMORY / STATE                             │
+│ L2  KNOWLEDGE & MEMORY                                   │
 │     ⚠️ Foundry: Agent memory, Foundry IQ (preview)       │
 │     🔧 YOU BUILD: RAG governance, memory lifecycle        │
 ├─────────────────────────────────────────────────────────┤
-│ L1  MODELS / DATA / COMPUTE                              │
+│ L1  MODELS & INFRASTRUCTURE                              │
 │     ✅ Foundry: Model catalog, fine-tuning, PTU, CMK      │
-│     🔧 YOU BUILD: Gov cloud gaps, DR, hybrid             │
+│     🔧 YOU BUILD: Regional/Gov gaps, DR, hybrid          │
 └─────────────────────────────────────────────────────────┘
 
 Legend: ✅ = Strong coverage  ⚠️ = Partial/Preview  🔧 = Custom engineering required
@@ -280,18 +288,21 @@ Legend: ✅ = Strong coverage  ⚠️ = Partial/Preview  🔧 = Custom engineeri
 
 ### 5.3 Key {a}OS Insight
 
-**Foundry is an L1–L4 platform that hopes to become L1–L5.** Governance (L6) is explicitly outside its scope. Orchestration (L5) is in preview. This means any enterprise deploying Foundry must build L6 entirely and supplement L5. The {a}OS model makes this visible on day one — before teams discover it through production failures.
+**Foundry is an L1–L3 platform with preview L4 capabilities, weak L5–L6, and partial L7.** The 7-stratum model reveals that what the old 6-layer analysis called "one governance gap" is actually three separate architectural problems: Experience (L7), Governance (L6), and Observability (L5). Each has a different owner, a different interface contract, and a different failure mode — which is precisely why they are separate strata. Any enterprise deploying Foundry must build L5–L7 substantially and supplement L4. The {a}OS model makes this visible on day one — before teams discover it through production failures.
 
 ### 5.4 How {a}OS Interacts with Foundry Architecture
 
 | {a}OS Concept | Foundry Implementation | Surrounding Platform Component |
 |---------------|----------------------|-------------------------------|
+| L7 experience surface | Foundry Portal, agent publishing | Custom UX, copilot integrations |
+| L7 intent disambiguation | None | Custom NLU / escalation logic |
 | L6 approval gates | None | Azure Logic Apps / custom workflow engine |
 | L6 audit trail | Azure Activity Log + App Insights | Log Analytics aggregation + SIEM export |
 | L6 policy enforcement | Azure Policy (infra), Content Safety (content) | Custom policy engine for agent behavior |
-| L5 multi-agent routing | Workflow agents (preview) | APIM AI Gateway + custom router |
-| L5 circuit breakers | None | Custom middleware or Thrash Collector pattern |
-| L4 agent execution | Prompt agents, hosted agents | Semantic Kernel / LangGraph for complex logic |
+| L5 tracing | OpenTelemetry + App Insights | Peered non-private App Insights workaround |
+| L5 evaluation | Built-in evaluators + CI/CD gates | Custom evaluators, continuous monitoring |
+| L4 multi-agent routing | Workflow agents (preview) | APIM AI Gateway + custom router |
+| L4 circuit breakers | None | Custom middleware or Thrash Collector pattern |
 | L3 tool calling | Function calling, MCP, tool catalog | Enterprise API management, custom connectors |
 | L2 RAG | Foundry IQ, AI Search | Document pipeline, access-controlled vector stores |
 | L2 memory | Agent conversation memory | Cross-session state management (Cosmos DB) |
@@ -304,18 +315,18 @@ Legend: ✅ = Strong coverage  ⚠️ = Partial/Preview  🔧 = Custom engineeri
 
 ### Series Title
 
-**"Building an AI Platform That Actually Ships: Lessons from Regulated Enterprise"**
+**"Building an AI Platform That Actually Ships"**
 
 ### Thesis
 
-Every organization attempting enterprise AI discovers that the platform is only part of the answer. The rest — governance, cost control, network isolation, and operational maturity — is what separates a demo from a deployable system. This series teaches the architecture, sequencing, risks, and practical decisions through the lens of standing up Azure AI Foundry in a regulated environment. It introduces the {a}OS 6-Layer model as a vendor-neutral framework for making these decisions repeatable.
+Every organization attempting enterprise AI discovers that the platform is only part of the answer. The rest — governance, cost control, observability, network isolation, and operational maturity — is what separates a demo from a deployable system. This series teaches the architecture, sequencing, risks, and practical decisions through the lens of standing up Azure AI Foundry for real production use. It introduces the {a}OS 7-Stratum model as a vendor-neutral framework for making these decisions repeatable — whether you're a startup shipping your first agent or a regulated enterprise with compliance requirements.
 
 ### Target Audience
 
-- **Primary:** Technical leaders and architects evaluating or deploying Azure AI in regulated environments (defense, healthcare, finance, government)
+- **Primary:** Technical leaders, architects, and developers evaluating or deploying Azure AI in production
 - **Secondary:** Engineering managers and CTOs responsible for AI strategy and governance
 - **Tertiary:** Security engineers and compliance officers assessing AI platform risk
-- **Scoped to:** Organizations with 500–3,000 employees, 10–50 engineers touching AI, $5M–$20M annual Azure spend
+- **Scope:** Universal — from small teams to large enterprises. Regulated-industry examples (defense, healthcare, finance) serve as credibility proof points throughout
 
 ### Number of Posts: 12
 
@@ -331,12 +342,12 @@ Every organization attempting enterprise AI discovers that the platform is only 
 
 ---
 
-#### Week 1: Foundation (Apr 7–10) — "Why this matters"
+#### Week 1: Foundation (Apr 8–15) — "Why this matters"
 
 **Post 1 — "Your AI Platform Doesn't Ship What You Think It Ships"** [LEAD]
 
-- Teaching objective: Establish that managed AI platforms are necessary but structurally incomplete for regulated enterprise
-- Takeaway: The gap between what the platform provides and what production requires is where most enterprise AI projects fail — not at the model layer
+- Teaching objective: Establish that managed AI platforms are necessary but structurally incomplete for production use
+- Takeaway: The gap between what the platform provides and what production requires is where most AI projects fail — not at the model layer
 - Character: Visionary
 - Hook: Contrarian assertion. Most AI platform content sells capabilities. This opens with structural absence.
 - Engagement prompt: "What's the biggest gap you've found between your AI platform's marketing and its operational reality?"
@@ -357,14 +368,14 @@ Every organization attempting enterprise AI discovers that the platform is only 
 
 **Post 3 — "Where Governance Actually Lives (and Why Your Platform Doesn't Own It)"** [LEAD] — {a}OS DEBUT
 
-- Teaching objective: Introduce the {a}OS 6-Layer model. Show that Foundry covers L1–L4 but governance (L6) is entirely your responsibility.
-- Takeaway: If you can't name which layer your problem lives in, you can't route it to the right team. Governance is not a feature — it's the architecture around the platform.
+- Teaching objective: Introduce the {a}OS 7-Stratum model. Show that Foundry covers L1–L3 well but three critical strata — L5 Observability, L6 Governance, and L7 Experience — are largely your responsibility. What marketing calls "one gap" is actually three separate architectural problems with three different owners.
+- Takeaway: If you can't name which stratum your problem lives in, you can't route it to the right team. Governance is not a feature — it's the architecture around the platform.
 - Character: Visionary
 - Hook: Framework introduction inside a concrete problem. "Every AI failure gets blamed on the model. Most of them are governance failures."
 - Engagement prompt: "How does your team name which part of the AI system failed? Model? Tooling? Orchestration? Policy? Or 'the AI broke'?"
-- Visual: {a}OS 6-layer stack diagram with Foundry coverage overlay (strong / partial / absent per layer)
+- Visual: {a}OS 7-stratum stack diagram with Foundry coverage heatmap overlay (Strong / Partial / Weak per stratum)
 - Dependencies: Posts 1, 2
-- Strategic value: This is the pivotal post. Everything before it is Azure-specific; everything after uses {a}OS as the teaching lens.
+- Strategic value: This is the pivotal post. Everything before it is Azure-specific; everything after uses {a}OS as the teaching lens. The 7-stratum model is stronger than 6L here because it reveals three gap strata, not one.
 
 **Post 4 — "The Identity Layer Most Teams Skip"** [TECH]
 
@@ -377,7 +388,7 @@ Every organization attempting enterprise AI discovers that the platform is only 
 
 ---
 
-#### Week 2: Architecture (Apr 14–17) — "How to build it"
+#### Week 2: Architecture (Apr 16–22) — "How to build it"
 
 **Post 5 — "The Network Isolation Exceptions Table"** [TECH]
 
@@ -391,38 +402,38 @@ Every organization attempting enterprise AI discovers that the platform is only 
 - Verification methodology: Frame as "here's how to check current status" with Azure docs links and CLI commands, not just a snapshot.
 - Red-team note: This table is perishable — Microsoft ships fixes without announcement. Include a "last verified" methodology, not just current state.
 
-**Post 6 — "Models, Money, and the Gov Cloud Reality"** [LEAD]
+**Post 6 — "Models, Money, and the Reality of Model Access"** [LEAD]
 
-- Teaching objective: Teach deployment types (PTU vs pay-as-you-go), model availability in Gov cloud, and why model portability matters from day one
-- Takeaway: Build for the model you can't get in Gov, not the one you have in commercial dev. Hardcoded model names are tech debt. Know the executive cost of PTU commitments.
+- Teaching objective: Teach deployment types (PTU vs pay-as-you-go), model availability constraints (regional, Gov cloud, quota), and why model portability matters from day one
+- Takeaway: Build for the model you might lose access to, not the one you have today. Hardcoded model names are tech debt. Know the executive cost of PTU commitments. *(Gov cloud callout: availability is even more constrained in sovereign clouds — same principle applies.)*
 - Character: Architect
-- Engagement prompt: "What's your strategy when the model you built on in commercial isn't available in your target cloud?"
-- Visual: Gov cloud model availability comparison table (Commercial vs Gov)
+- Engagement prompt: "What's your strategy when the model you built on isn't available in your target region or cloud?"
+- Visual: Model availability comparison table (Commercial vs Gov vs regional constraints)
 - Dependencies: Posts 2, 5
-- Red-team note: Gov cloud availability changes frequently. Include methodology for checking current state via Azure docs.
+- Red-team note: Model availability changes frequently. Include methodology for checking current state via Azure docs.
 
 **Post 7 — "Agent Maturity: What's GA, What's Preview, What Matters"** [TECH]
 
-- Teaching objective: Teach the three agent types (prompt/workflow/hosted), their maturity levels, and what's actually safe for production in regulated environments
+- Teaching objective: Teach the three agent types (prompt/workflow/hosted), their maturity levels, and what's actually safe for production
 - Takeaway: Prompt agents are GA and production-safe. Everything else is preview. Build your first value on what's stable, not what's exciting.
 - Character: Mentor Architect
 - Engagement prompt: "Are you building production workloads on preview features? What's your rollback plan when they change?"
 - Visual: Agent type maturity matrix (type × status × VNet × production readiness)
 - Dependencies: Posts 2, 3
 
-**Post 8 — "RAG and Data Security in Classified Environments"** [TECH]
+**Post 8 — "RAG and the Data Residency Question Nobody Asked"** [TECH]
 
-- Teaching objective: Teach data access patterns, BYO storage, document security, and why "Basic" vs "Standard" agent storage is a compliance-critical decision
-- Takeaway: "Basic" agent storage is Microsoft-managed multitenant. If you handle controlled data, you need "Standard" with BYO storage — and you need to know this before your first deployment, not after.
+- Teaching objective: Teach data access patterns, BYO storage, document security, and why "Basic" vs "Standard" agent storage is a decision that determines where your data actually lives
+- Takeaway: "Basic" agent storage is Microsoft-managed multitenant. If you handle sensitive customer data, PII, financial records, or controlled data of any kind, you need "Standard" with BYO storage — and you need to know this before your first deployment, not after.
 - Character: Architect
 - Engagement prompt: "Do you know whether your AI agent's data is stored in Microsoft-managed or customer-managed storage?"
 - Visual: Storage model comparison (Basic vs Standard, with data residency implications)
 - Dependencies: Posts 3, 5
-- Red-team note: Include env separation content here (projects share parent networking). This absorbs the cut Post 11.
+- Red-team note: Include env separation content here (projects share parent networking). This absorbs the cut Post 11. *(Regulated-industry callout: For defense/healthcare, this isn't optional — it's the difference between compliant and not.)*
 
 ---
 
-#### Week 3: Operational Reality (Apr 21–25) — "What you learn the hard way"
+#### Week 3: Operational Reality (Apr 23–29) — "What you learn the hard way"
 
 **Post 9 — "Cost Governance Is Not a Feature — It's an Architecture"** [LEAD]
 
@@ -447,7 +458,7 @@ Every organization attempting enterprise AI discovers that the platform is only 
 
 **Post 11 — "Phase 1: What to Actually Build First"** [TECH]
 
-- Teaching objective: Give a concrete, sequenced implementation plan for a medium-sized regulated enterprise — what to do in months 1-3
+- Teaching objective: Give a concrete, sequenced implementation plan — what to do in months 1-3, whether you're a team of 5 or 50
 - Takeaway: Phase 1 is identity + networking + one model + one agent + cost metering + IaC. Not a model catalog. Not a multi-agent framework. Not RAG. Deploy via Bicep/CLI, not the portal.
 - Character: Mentor Architect
 - Engagement prompt: "What did your Phase 1 look like? Was it scoped tight, or did scope creep hit before you shipped value?"
@@ -458,7 +469,7 @@ Every organization attempting enterprise AI discovers that the platform is only 
 **Post 12 — "A Framework for Every AI Platform Decision"** [LEAD] — CAPSTONE
 
 - Teaching objective: Close the series by reinforcing {a}OS as the decision framework. Show it applied to the full Foundry evaluation. Demonstrate its portability to other platforms.
-- Takeaway: Every managed AI platform gives you most of what you need at L1-L4. The {a}OS model tells you which layers you're responsible for — before you discover it through failure. This works for Azure, AWS, GCP, or your internal platform.
+- Takeaway: Every managed AI platform covers L1–L3 well. The {a}OS 7-stratum model reveals the three strata they leave to you — L5 Observability, L6 Governance, L7 Experience — before you discover it through failure. This works for Azure, AWS, GCP, or your internal platform.
 - Character: Visionary
 - Hook: "This started as an Azure series. It ended as a framework."
 - Engagement prompt: "If you could name the layer where your last AI project got stuck, what would it be?"
@@ -470,7 +481,7 @@ Every organization attempting enterprise AI discovers that the platform is only 
 
 ## 7. Recommended Duration and Why
 
-### Recommendation: 12 posts over 3 weeks (Apr 7–25)
+### Recommendation: 12 posts over ~3 weeks (Apr 8–29)
 
 **Why 12 posts (not 15):**
 
@@ -499,15 +510,33 @@ Every organization attempting enterprise AI discovers that the platform is only 
 
 | Week | Days | Posts | Theme | L/T Pattern |
 |------|------|:---:|-------|:-----------:|
-| 1 | Apr 7, 8, 9, 10 | 4 | Foundation | L-T-L-T |
-| 2 | Apr 14, 15, 16, 17 | 4 | Architecture | T-L-T-T |
-| 3 | Apr 21, 22, 24, 25 | 4 | Operational Reality | L-T-T-L |
+| 1 | Apr 8, 9, 14, 15 | 4 | Foundation | L-T-L-T |
+| 2 | Apr 16, 17, 21, 22 | 4 | Architecture | T-L-T-T |
+| 3 | Apr 23, 24, 28, 29 | 4 | Operational Reality | L-T-T-L |
 
-**Rhythm note:** No more than 2 consecutive Tech posts. Every week starts or ends with a Leadership post to sustain executive audience.
+**Rhythm note:** Wed-Thu pairs followed by Mon-Tue pairs. Weekend breaks let engagement accumulate. No more than 2 consecutive Tech posts. Every week sustains the executive audience.
+
+**Full date-to-post mapping:**
+
+| Post # | Title | Date | Day | Type |
+|:---:|:---|:---:|:---:|:---:|
+| 1 | Your AI Platform Doesn't Ship What You Think It Ships | Apr 8 | Wed | Lead |
+| 2 | What Azure AI Foundry Actually Is (and Isn't) | Apr 9 | Thu | Tech |
+| 3 | Where Governance Actually Lives | Apr 14 | Mon | Lead |
+| 4 | The Identity Layer Most Teams Skip | Apr 15 | Tue | Tech |
+| 5 | The Network Isolation Exceptions Table | Apr 16 | Wed | Tech |
+| 6 | Models, Money, and the Reality of Model Access | Apr 17 | Thu | Lead |
+| 7 | Agent Maturity: What's GA, What's Preview, What Matters | Apr 21 | Mon | Tech |
+| 8 | RAG and the Data Residency Question Nobody Asked | Apr 22 | Tue | Tech |
+| 9 | Cost Governance Is Not a Feature — It's an Architecture | Apr 23 | Wed | Lead |
+| 10 | The Observability Paradox | Apr 24 | Thu | Tech |
+| 11 | Phase 1: What to Actually Build First | Apr 28 | Mon | Tech |
+| 12 | A Framework for Every AI Platform Decision | Apr 29 | Tue | Lead |
 
 ### Visual Content Strategy
 
 Every post should have ONE visual asset:
+
 - Leadership posts: Framework diagrams, heatmaps, strategic visuals
 - Technical posts: Architecture diagrams, comparison tables, exception tables
 - LinkedIn posts with images get 2-3x engagement over text-only
@@ -527,7 +556,7 @@ In priority order:
 
 ### 2. Post 5: "The Network Isolation Exceptions Table"
 
-- **Why second:** This is the most valuable post in the series for a defense/regulated audience. The exceptions table is information most teams discover in production.
+- **Why second:** This is the most valuable post in the series for anyone running AI in production behind a firewall. The exceptions table is information most teams discover in production.
 - **Hook type:** Myth-busting. "End-to-end isolation" is the vendor claim; the exceptions table is the receipt.
 - **Authority potential:** Very high. Demonstrates deep operational knowledge.
 - **Visual needed:** Exceptions truth table (tool × VNet status).
@@ -538,7 +567,7 @@ In priority order:
 - **Why third:** {a}OS public debut inside a practical context. This is where the framework meets the audience's real problem.
 - **Hook type:** Framework introduction inside a concrete use case.
 - **Strategic value:** This is the pivotal post that connects the Azure series back to long-term {a}OS positioning.
-- **Visual needed:** {a}OS 6-layer stack with Foundry coverage overlay.
+- **Visual needed:** {a}OS 7-stratum stack with Foundry coverage heatmap overlay.
 
 ### 4. Post 2: "What Azure AI Foundry Actually Is (and Isn't)"
 
@@ -576,11 +605,12 @@ Posts 1, 2, 3, 5, 6, 9, 11, 12
 ### If Expanded to Flagship+ (15-17 posts)
 
 Expand:
+
 - **Post 3 ({a}OS) → 2-part mini-series** — Part 1: the model, Part 2: the vendor mapping exercise
 - **Post 5 (Network Isolation) → add a companion technical thread** with the full exceptions table and Azure Policy examples
 - **Post 11 (Phase 1) → expand into a 3-part implementation guide** (Phase 1 / Phase 2 / Phase 3)
 - **Add Post 13:** "The Agentic Software Factory" — how Foundry + {a}OS + governance pipeline becomes a repeatable factory pattern
-- **Add Post 14:** "Lessons from the Classified Side" — what changes when you move from IL4/5 to air-gapped or on-prem (Foundry Local)
+- **Add Post 14:** "Lessons from the Regulated Side" — what changes when you layer on CMMC, HIPAA, SOC2, or air-gapped requirements (Foundry Local)
 - **Add Post 15:** "The Deployment Deficit" — pull from shelved APR002 backlog content, connect to {a}OS
 
 ### Sequencing Notes
@@ -607,27 +637,29 @@ Expand:
 
 ## 10. Final Recommendation
 
-### This should be a flagship series — corrected to 12 posts, 3 weeks
+### This should be a flagship series — corrected to 12 posts, ~3 weeks
 
-**12 posts. 3 weeks. Apr 7–25.**
+**12 posts. ~3 weeks. Apr 8–29.**
 
 **Changes from pre-red-team plan:**
 
 1. **Cut from 15 → 12.** Merged env separation, IaC, and risk roundup into adjacent posts. No standalone "eat your vegetables" posts remain.
 2. **{a}OS moved to Post 3 (from Post 6).** Executives disengage by Post 5-6. The strategic payload must land while the full audience is still reading.
-3. **Alternating Lead/Tech enforced.** No more than 2 consecutive technical posts. Every week sustains the executive audience.
-4. **Series title broadened.** "Regulated enterprise" not "defense contractor." Defense is the credibility source, not the audience filter.
-5. **Audience scoped.** 500-3K employees, 10-50 AI engineers, $5-20M Azure. Every recommendation tested against this org size.
-6. **Verification methodology added.** Every post with a perishable claim teaches readers how to check current state, not just the state at publication time.
-7. **Visual strategy added.** One visual asset per post. Diagrams and tables for Tech posts; framework visuals for Lead posts. 2-3x engagement multiplier.
-8. **Engagement hooks added.** One question or prompt per post. LinkedIn rewards conversation, not instruction.
-9. **$22 loop attribution corrected.** Frame as a universal agent cost lesson, not a Foundry-native event.
+3. **Upgraded from 6-Layer to 7-Stratum model (v1.0).** The 7-stratum model makes Post 3 even stronger: what marketing calls "one gap" is actually three separate architectural problems (L5/L6/L7). Three separate owners, three separate failure modes.
+4. **Alternating Lead/Tech enforced.** No more than 2 consecutive technical posts. Every week sustains the executive audience.
+5. **Series title broadened.** Universal enterprise framing, not "regulated enterprise." Defense and compliance are credibility proof points, not the audience filter.
+6. **Audience scoped universally.** From small teams to large enterprises. Regulated-industry examples serve as depth and credibility, not as gatekeeping.
+7. **Verification methodology added.** Every post with a perishable claim teaches readers how to check current state, not just the state at publication time.
+8. **Visual strategy added.** One visual asset per post. Diagrams and tables for Tech posts; framework visuals for Lead posts. 2-3x engagement multiplier.
+9. **Engagement hooks added.** One question or prompt per post. LinkedIn rewards conversation, not instruction.
+10. **$22 loop attribution corrected.** Frame as a universal agent cost lesson, not a Foundry-native event.
+11. **7-Day Learning Curriculum created.** Companion curriculum maps the 12 posts to a stratum-by-stratum learning path with hands-on setup tasks. See `7-day-learning-curriculum.md`.
 
 **Why flagship:**
 
 1. **The topic is deep enough.** Azure AI Foundry in a regulated context has genuine architectural complexity and real operational gaps. 12 posts teach the essentials without padding.
 2. **The {a}OS connection makes it strategic.** Post 3 introduces the framework. Post 12 proves its portability. The series becomes a {a}OS launch vehicle, not just Azure content.
-3. **The compliance angle is underserved.** Defense-relevant content with real gap analysis, Gov cloud reality checks, and network isolation truth tables does not exist at this level on LinkedIn.
+3. **The compliance angle is underserved.** Production-focused content with real gap analysis, network isolation truth tables, and cost governance architecture does not exist at this level on LinkedIn. The regulated-industry depth adds credibility without narrowing the audience.
 4. **The content is highly reusable.** Every post maps to a future deck section, training module, or implementation document. A 12-post series becomes a 3-module course, a reference architecture deck, and an internal playbook.
 5. **The cadence is sustainable.** 4 posts/week for 3 weeks is achievable without self-cannibalization.
 
@@ -641,8 +673,8 @@ Expand:
 
 **If forced to shorten:** Cut to 8 posts. Core: Posts 1, 2, 3, 5, 6, 9, 11, 12.
 
-**If expanded to flagship+:** Add software factory capstone, classified deep dive, and Deployment Deficit tie-in for a 15-post, 4-week series.
+**If expanded to flagship+:** Add software factory capstone, regulated deep dive, and Deployment Deficit tie-in for a 15-post, 4-week series.
 
-**The content calendar has 25 open slots (Apr 6–30).** This series uses 12 of them (Apr 7–25), leaving 13 slots for standalone posts, rest days, and backlog items.
+**The content calendar has open slots (Apr 8–30).** This series uses 12 of them (Apr 8–29), leaving room for standalone posts, rest days, and backlog items.
 
 Start drafting Post 1.
