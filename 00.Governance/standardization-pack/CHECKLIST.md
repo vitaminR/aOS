@@ -4,16 +4,19 @@ Use this as the end-to-end tracker for getting the `{a}OS` model ready for stand
 
 ## Phase 0 — Core decisions
 
-- [ ] Decide whether `{a}OS` stays **brand-only** while the standards title stays neutral
-- [ ] Pick the working neutral title
-- [ ] Decide what is actually being proposed:
-  - [ ] terminology only
-  - [ ] reference model + terminology
-  - [ ] reference model + terminology + classification schema
-- [ ] Decide primary first route:
-  - [ ] IEEE SA
-  - [ ] ISO / ANSI route
-  - [ ] NIST alignment first
+- [x] Decide whether `{a}OS` stays **brand-only** while the standards title stays neutral
+- [x] Pick the working neutral title → **Agentic Systems — Reference Model and Vocabulary**
+- [x] Decide what is actually being proposed:
+  - [x] reference model + terminology + classification schema
+- [x] Decide primary first route:
+  - [x] IEEE SA (with parallel NIST alignment)
+- [x] Reference model written (v1.0)
+- [x] Vocabulary locked (Stratum, Axis, Substrate, Construct, Primitive)
+- [x] Interactive Explorer built with 40+ products classified
+- [x] NIST AI RMF crosswalk started (draft)
+- [x] Brand vs. neutral naming decision made
+- [x] Dual-license structure established (CC BY 4.0 + Apache 2.0)
+- [x] Atlas license addendum documented
 
 ## Phase 1 — Create the standards-ready package
 
@@ -95,6 +98,17 @@ Use this as the end-to-end tracker for getting the `{a}OS` model ready for stand
 - [ ] Crosswalk is complete enough to defend value
 - [ ] Outreach/contact draft is ready
 - [ ] Submission links/accounts are confirmed
+
+## Phase 1 — Atlas Adoption
+
+- [ ] Perpetual license agreement signed with Atlas
+- [ ] Pilot deployment on one Atlas workflow
+- [ ] Internal validation feedback collected
+- [ ] Model applied to real Atlas agentic architecture decisions
+- [ ] At least one architecture decision explicitly uses the {a}OS model
+- [ ] Pilot metrics captured (cycle time, hours saved, cost per task)
+
+---
 
 ## Definition of done for first external outreach
 
