@@ -18,7 +18,7 @@ Its purpose is to let users answer questions like:
 * What strata does this product actually touch?
 * Which axes does it govern or influence?
 * Which constructs and primitives does it produce or control?
-* How does Azure AI Foundry compare to Paperclip + Hermes + other aftermarket stacks?
+* How does Azure AI Foundry compare to Paperclip + Kotana + other aftermarket stacks?
 * What gaps, overlaps, and hidden dependencies exist between these systems?
 
 ### 1.3 Product Goal
@@ -92,7 +92,7 @@ This product tells users:
 
 ### 3.2 Core Use Cases
 
-* Compare Azure AI Foundry against Paperclip + Hermes + other additions
+* Compare Azure AI Foundry against Paperclip + Kotana + other additions
 * Explore how a product spans multiple strata
 * Filter all products that touch L4 and Governance Axis
 * Drill into a stratum and expand down to primitives
@@ -256,6 +256,7 @@ Every drilldown state must show a clickable breadcrumb trail:
 ```
 
 **Rules:**
+
 * Always visible in main canvas header during drilldown
 * Each segment is clickable — user can jump back to any level
 * Breadcrumb updates in-place during morphing transitions (no page reload)
@@ -284,6 +285,7 @@ Every container that can be empty must have a purposeful empty state:
 4. "Use filters to narrow by vendor, deployment model, or axis"
 
 **Rules:**
+
 * Shown once per browser (localStorage flag)
 * Skippable with "Skip tour" link on first step
 * Each coachmark highlights the relevant UI region with a spotlight mask
@@ -296,6 +298,7 @@ Every container that can be empty must have a purposeful empty state:
 The Stratum → Substrate → Construct → Primitive hierarchy is itself a chunking pattern — it breaks a complex system into 4 nested levels that match human working memory limits (Miller's 7±2 / Cowan's 4±1).
 
 **UI enforcement:**
+
 * Never show more than one hierarchy level expanded at a time by default (user can manually expand multiple, but auto-expand collapses siblings)
 * Each level visually nests with indentation + progressive size reduction
 * Substrate count per stratum should target 3-7 visible items before "show more" truncation
@@ -306,6 +309,7 @@ The Stratum → Substrate → Construct → Primitive hierarchy is itself a chun
 Users should never need to memorize ontology vocabulary to use the app.
 
 **Rules:**
+
 * Stratum names always appear with their boundary question as a subtitle (e.g., "L4 — Orchestration & Decisioning" / *What happens next, in what order, with which agent?*)
 * Vocabulary terms (Stratum, Axis, Substrate, Construct, Primitive) show tooltip definitions on first hover
 * Entity type icons are consistent and always paired with text labels — no icon-only navigation
@@ -314,6 +318,7 @@ Users should never need to memorize ontology vocabulary to use the app.
 #### 6.5.6 Progressive Disclosure *(Cognition)*
 
 **Rules (formalized):**
+
 * Default view: 7 strata as collapsed cards — no substrates visible
 * First click: expand one stratum → show substrates
 * Second click: expand one substrate → show constructs
@@ -351,6 +356,7 @@ Formalizes Rule 11.4 with specific pattern guidance:
 | `?` | Show keyboard shortcut overlay |
 
 **Rules:**
+
 * Shortcuts only active when no text input is focused
 * Shortcut overlay (triggered by `?`) uses a modal cheat-sheet — same pattern as GitHub, Linear, Notion
 
@@ -922,7 +928,7 @@ At minimum include:
 
 * Azure AI Foundry
 * Paperclip
-* Hermes
+* Kotana
 * NemoClaw / OpenShell
 * LangGraph
 * CrewAI
@@ -1027,7 +1033,7 @@ A user should be able to:
 * open the stack
 * click L4
 * expand into substrates
-* select Azure AI Foundry and Hermes
+* select Azure AI Foundry and Kotana
 * see where each spans strata
 * compare them side by side
 * understand where Azure-native ends and aftermarket begins

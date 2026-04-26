@@ -16,6 +16,6 @@ Canonical home for the {a}OS 6-Layer AI/ML Reference Model, vendor mappings, and
 
 ## Relationships
 
-- Parent hub: `c:\Users\nymil\Codepro\1.agentic\`
+- Parent hub: `c:\Users\nymil\Codepro\0.agentic\`
 - LinkedIn pipeline: `c:\Users\nymil\Codepro\3.LinkedIn-Branding\`
 - Layer model backlog origin: `c:\Users\nymil\Codepro\3.LinkedIn-Branding\Archive\backlog\aos-6layer\`

@@ -759,7 +759,7 @@ Hallucinated destructive script
 
 ## 8.0 SAMPLE PRODUCT MAPPINGS
 
-### 8.1 Hermes
+### 8.1 Kotana
 
 Primary stratum:
 

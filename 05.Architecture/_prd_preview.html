@@ -1,739 +1,990 @@
-<!DOCTYPE html>
-<html><head>
-<meta charset='utf-8'>
-<title>{a}OS Explorer PRD + SPEC</title>
-<style>
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #0a0c0e; color: #e0e0e0; max-width: 900px; margin: 0 auto; padding: 40px 20px; line-height: 1.7; }
-  h1 { color: #818cf8; border-bottom: 2px solid #818cf8; padding-bottom: 12px; font-size: 2em; }
-  h2 { color: #a5b4fc; margin-top: 2em; border-bottom: 1px solid #333; padding-bottom: 8px; }
-  h3 { color: #c7d2fe; margin-top: 1.5em; }
-  hr { border: 1px solid #1e1e2e; margin: 2em 0; }
-  li { margin: 4px 0; padding-left: 4px; }
-  strong { color: #f0f0f0; }
-  em { color: #a5b4fc; }
-  code { background: #1a1a2e; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #818cf8; }
-  pre { background: #12121e; border: 1px solid #2a2a3e; border-radius: 8px; padding: 16px; overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-  td, th { border: 1px solid #333; padding: 8px 12px; text-align: left; }
-  tr:nth-child(even) { background: #111118; }
-  a { color: #818cf8; }
-  ::selection { background: #818cf855; }
-</style>
-</head><body><h1>{a}OS Web App — PRD + SPEC</h1>
-
-<h2>1.0 Product Summary</h2>
-
-<h3>1.1 Working Title</h3>
-
-<strong>{a}OS Explorer</strong>
-
-<h3>1.2 Product Thesis</h3>
-
-{a}OS Explorer is a modular web application for classifying, comparing, and exploring AI products, agents, frameworks, workflows, skills, and tools against the canonical {a}OS reference model.
-
-It is not a static directory.
-It is an <strong>interactive taxonomy and comparison engine</strong>.
-
-Its purpose is to let users answer questions like:
-
-<li>What strata does this product actually touch?</li>
-<li>Which axes does it govern or influence?</li>
-<li>Which constructs and primitives does it produce or control?</li>
-<li>How does Azure AI Foundry compare to Paperclip + Hermes + other aftermarket stacks?</li>
-<li>What gaps, overlaps, and hidden dependencies exist between these systems?</li>
-
-<h3>1.3 Product Goal</h3>
-
-Provide a flexible, evidence-backed system for:
-
-<li>browsing the {a}OS model</li>
-<li>drilling from <strong>Stratum → Substrate → Construct → Primitive</strong></li>
-<li>comparing products and frameworks across the same ontology</li>
-<li>filtering by category, capability, axis, maturity, deployment model, and more</li>
-<li>making the framework usable for both learning and architecture decision support</li>
-
-<h3>1.4 Product Type</h3>
-
-Hybrid of:
-
-<li>interactive knowledge model</li>
-<li>product intelligence browser</li>
-<li>architecture comparison tool</li>
-<li>taxonomy explorer</li>
-
-<hr>
-
-<h2>2.0 Product Vision</h2>
-
-<h3>2.1 Vision Statement</h3>
-
-Create the OSI-like reference interface for the agentic era: a web app where people can visually understand where AI systems live, where they overlap, and where they fail.
-
-<h3>2.2 Core Value Proposition</h3>
-
-Most AI tooling sites tell users <strong>what a product claims to do</strong>.
-This product tells users:
-
-<li><strong>where it belongs</strong></li>
-<li><strong>how it overlaps with other products</strong></li>
-<li><strong>what part of the stack it governs</strong></li>
-<li><strong>what primitives and constructs it touches</strong></li>
-<li><strong>what risks and gaps appear when composing systems together</strong></li>
-
-<h3>2.3 Product Principles</h3>
-
-<li><strong>Ontology-first</strong>: the model drives the UI, not the other way around</li>
-<li><strong>Flexible views</strong>: same data, multiple browsing modes</li>
-<li><strong>Progressive drilldown</strong>: broad first, deep on demand</li>
-<li><strong>Evidence-backed classification</strong>: every placement can be justified</li>
-<li><strong>Multi-residency classification</strong>: products can span multiple strata</li>
-<li><strong>Framework-agnostic</strong>: compare {a}OS against alternative models later</li>
-<li><strong>Composable UI</strong>: modules can be reused for product, framework, workflow, or agent exploration</li>
-
-<hr>
-
-<h2>3.0 Users and Use Cases</h2>
-
-<h3>3.1 Primary Users</h3>
-
-1. <strong>Architects</strong>
-   Need to compare stacks and identify overlap, gaps, and governance implications.
-
-2. <strong>Engineers</strong>
-   Need to understand where tools sit and which layer is failing.
-
-3. <strong>Technical leaders / innovation leads</strong>
-   Need to explain architecture and defend adoption decisions.
-
-4. <strong>Researchers / buyers</strong>
-   Need to compare Azure-native vs aftermarket solutions.
-
-5. <strong>Content audience</strong>
-   Need a visual, engaging, memorable way to learn the model.
-
-<h3>3.2 Core Use Cases</h3>
-
-<li>Compare Azure AI Foundry against Paperclip + Hermes + other additions</li>
-<li>Explore how a product spans multiple strata</li>
-<li>Filter all products that touch L4 and Governance Axis</li>
-<li>Drill into a stratum and expand down to primitives</li>
-<li>Swap category from frameworks to agents, workflows, or skills</li>
-<li>Compare alternative reference frameworks side by side</li>
-<li>Identify whether a product is acting as substrate, construct producer, or axis-enforcer</li>
-
-<hr>
-
-<h2>4.0 Product Scope</h2>
-
-<h3>4.1 In Scope for MVP</h3>
-
-<li>Canonical {a}OS stack visualization</li>
-<li>Multi-entity browser: products, frameworks, agents, workflows, skills</li>
-<li>Drilldown explorer from Stratum to Primitive</li>
-<li>Compare mode for 2–4 items</li>
-<li>Filtering system</li>
-<li>Classification model with primary / secondary strata and axis roles</li>
-<li>Product detail pages</li>
-<li>Framework detail pages</li>
-<li>Evidence / rationale panels</li>
-<li>Relationship visualization between selected objects</li>
-
-<h3>4.2 Out of Scope for MVP</h3>
-
-<li>User accounts / social features</li>
-<li>Crowd-sourced public editing</li>
-<li>Fully automated classification from scraped web data</li>
-<li>Billing / subscriptions</li>
-<li>Real-time usage telemetry from third-party tools</li>
-<li>AI-generated architecture recommendations without human review</li>
-
-<h3>4.3 Phase 2 Candidates</h3>
-
-<li>Saved comparison sets</li>
-<li>Team workspaces</li>
-<li>Framework scoring and weighting system</li>
-<li>Scenario-based evaluation mode</li>
-<li>AI-assisted classification suggestions</li>
-<li>Public submission pipeline with moderation</li>
-
-<hr>
-
-<h2>5.0 Core Concept Model</h2>
-
-<h3>5.1 Canonical Terms</h3>
-
-<li><strong>Stratum</strong> = top-level layer in the stack</li>
-<li><strong>Axis</strong> = cross-cutting concern intersecting multiple strata</li>
-<li><strong>Substrate</strong> = tools/frameworks/systems operating in a stratum</li>
-<li><strong>Construct</strong> = meaningful artifact/state produced by a substrate</li>
-<li><strong>Primitive</strong> = smallest atomic unit inside a construct</li>
-
-<h3>5.2 Entity Types</h3>
-
-The app must support multiple top-level entity types using the same underlying model:
-
-<li>Products</li>
-<li>Frameworks</li>
-<li>Agents</li>
-<li>Workflows</li>
-<li>Skills</li>
-<li>Axes</li>
-<li>Strata</li>
-<li>Substrates</li>
-<li>Constructs</li>
-<li>Primitives</li>
-
-<h3>5.3 Classification Rules</h3>
-
-Each product or entity may have:
-
-<li>one <strong>primary stratum</strong></li>
-<li>zero or more <strong>secondary strata</strong></li>
-<li>zero or more <strong>axis roles</strong></li>
-<li>one or more <strong>capabilities</strong></li>
-<li>one or more <strong>constructs produced / governed</strong></li>
-<li>one or more <strong>primitives touched / governed</strong></li>
-<li>confidence score</li>
-<li>rationale</li>
-<li>evidence links / notes</li>
-
-<hr>
-
-<h2>6.0 UX Model</h2>
-
-<h3>6.1 Primary Interaction Concept</h3>
-
-The app should feel like a <strong>progressive morphing explorer</strong>.
-
-Users can start from a high-level stack, then click deeper and transform the interface into more detailed views without switching mental context.
-
-<h3>6.2 Key UX Pattern</h3>
-
-<strong>Progressive Drilldown Explorer</strong>
-
-<em>Cognitive rationale:</em> The 4-level hierarchy (Stratum → Substrate → Construct → Primitive) maps to Cowan's 4±1 working memory limit. Each level is a meaningful chunk — users never see more than one hierarchy level at once unless they explicitly expand. See 6.5.4 (Chunking) and 6.5.6 (Progressive Disclosure) for enforcement rules.
-
-User flow:
-
-1. Start at stack or category view
-2. Click a Stratum
-3. Expand into Substrates
-4. Expand a Substrate into Constructs
-5. Expand a Construct into Primitives
-6. Layer on filters, comparisons, and alternate framework views
-
-This should not feel like navigating to a different page every time.
-It should feel like the UI <strong>unfolds deeper</strong>.
-
-<h3>6.3 Desired Interaction Modes</h3>
-
-<strong>MVP (ship these three):</strong>
-
-1. <strong>Stack Mode</strong>
-   Classic 7-stratum vertical model
-
-2. <strong>Accordion Mode</strong>
-   Expand strata into substrate/construct/primitive rows
-
-3. <strong>Compare Mode</strong>
-   Side-by-side comparison of selected products/frameworks/entities
-
-<strong>Phase 2 (add these after MVP proves the core):</strong>
-
-1. <strong>Map Mode</strong>
-   Multi-layer, multi-product span view showing overlaps and coverage
-
-2. <strong>Category Mode</strong>
-   Top-level toggle between Products, Frameworks, Agents, Workflows, Skills
-
-3. <strong>Axis Mode</strong>
-   Show how Governance &amp; Trust and Observability &amp; Evaluation cut across selected items
-
-<h3>6.4 Top Navigation / Mode Buttons</h3>
-
-At the top of the app, include color-coded pill buttons or segmented tabs for:
-
-<li>Products</li>
-<li>Frameworks</li>
-<li>Workflows</li>
-<li>Compare</li>
-<li>Axes</li>
-<li>Strata</li>
-
-<strong>MVP constraint:</strong> Only show entity types with populated content. Agents and Skills buttons appear greyed out or hidden until Phase 2 content is seeded. Never show 8 buttons with 3 populated — it signals an empty product.
-
-These must be globally accessible and instantly switch the object lens while preserving filters where appropriate.
-
-<h3>6.5 UX Patterns <em>(informed by ui-patterns.com)</em></h3>
-
-The following patterns are required or strongly recommended. Each maps to a known UX pattern with documented cognitive rationale.
-
-#### 6.5.1 Breadcrumbs <em>(Navigation)</em>
-
-Every drilldown state must show a clickable breadcrumb trail:
-
-<pre>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{a}OS Explorer PRD + SPEC</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        background: #0a0c0e;
+        color: #e0e0e0;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        line-height: 1.7;
+      }
+      h1 {
+        color: #818cf8;
+        border-bottom: 2px solid #818cf8;
+        padding-bottom: 12px;
+        font-size: 2em;
+      }
+      h2 {
+        color: #a5b4fc;
+        margin-top: 2em;
+        border-bottom: 1px solid #333;
+        padding-bottom: 8px;
+      }
+      h3 {
+        color: #c7d2fe;
+        margin-top: 1.5em;
+      }
+      hr {
+        border: 1px solid #1e1e2e;
+        margin: 2em 0;
+      }
+      li {
+        margin: 4px 0;
+        padding-left: 4px;
+      }
+      strong {
+        color: #f0f0f0;
+      }
+      em {
+        color: #a5b4fc;
+      }
+      code {
+        background: #1a1a2e;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        color: #818cf8;
+      }
+      pre {
+        background: #12121e;
+        border: 1px solid #2a2a3e;
+        border-radius: 8px;
+        padding: 16px;
+        overflow-x: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1em 0;
+      }
+      td,
+      th {
+        border: 1px solid #333;
+        padding: 8px 12px;
+        text-align: left;
+      }
+      tr:nth-child(even) {
+        background: #111118;
+      }
+      a {
+        color: #818cf8;
+      }
+      ::selection {
+        background: #818cf855;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>{a}OS Web App — PRD + SPEC</h1>
+
+    <h2>1.0 Product Summary</h2>
+
+    <h3>1.1 Working Title</h3>
+
+    <strong>{a}OS Explorer</strong>
+
+    <h3>1.2 Product Thesis</h3>
+
+    {a}OS Explorer is a modular web application for classifying, comparing, and
+    exploring AI products, agents, frameworks, workflows, skills, and tools
+    against the canonical {a}OS reference model. It is not a static directory.
+    It is an <strong>interactive taxonomy and comparison engine</strong>. Its
+    purpose is to let users answer questions like:
+
+    <li>What strata does this product actually touch?</li>
+    <li>Which axes does it govern or influence?</li>
+    <li>Which constructs and primitives does it produce or control?</li>
+    <li>
+      How does Azure AI Foundry compare to Paperclip + Kotana + other
+      aftermarket stacks?
+    </li>
+    <li>
+      What gaps, overlaps, and hidden dependencies exist between these systems?
+    </li>
+
+    <h3>1.3 Product Goal</h3>
+
+    Provide a flexible, evidence-backed system for:
+
+    <li>browsing the {a}OS model</li>
+    <li>
+      drilling from <strong>Stratum → Substrate → Construct → Primitive</strong>
+    </li>
+    <li>comparing products and frameworks across the same ontology</li>
+    <li>
+      filtering by category, capability, axis, maturity, deployment model, and
+      more
+    </li>
+    <li>
+      making the framework usable for both learning and architecture decision
+      support
+    </li>
+
+    <h3>1.4 Product Type</h3>
+
+    Hybrid of:
+
+    <li>interactive knowledge model</li>
+    <li>product intelligence browser</li>
+    <li>architecture comparison tool</li>
+    <li>taxonomy explorer</li>
+
+    <hr />
+
+    <h2>2.0 Product Vision</h2>
+
+    <h3>2.1 Vision Statement</h3>
+
+    Create the OSI-like reference interface for the agentic era: a web app where
+    people can visually understand where AI systems live, where they overlap,
+    and where they fail.
+
+    <h3>2.2 Core Value Proposition</h3>
+
+    Most AI tooling sites tell users
+    <strong>what a product claims to do</strong>. This product tells users:
+
+    <li><strong>where it belongs</strong></li>
+    <li><strong>how it overlaps with other products</strong></li>
+    <li><strong>what part of the stack it governs</strong></li>
+    <li><strong>what primitives and constructs it touches</strong></li>
+    <li>
+      <strong
+        >what risks and gaps appear when composing systems together</strong
+      >
+    </li>
+
+    <h3>2.3 Product Principles</h3>
+
+    <li>
+      <strong>Ontology-first</strong>: the model drives the UI, not the other
+      way around
+    </li>
+    <li><strong>Flexible views</strong>: same data, multiple browsing modes</li>
+    <li><strong>Progressive drilldown</strong>: broad first, deep on demand</li>
+    <li>
+      <strong>Evidence-backed classification</strong>: every placement can be
+      justified
+    </li>
+    <li>
+      <strong>Multi-residency classification</strong>: products can span
+      multiple strata
+    </li>
+    <li>
+      <strong>Framework-agnostic</strong>: compare {a}OS against alternative
+      models later
+    </li>
+    <li>
+      <strong>Composable UI</strong>: modules can be reused for product,
+      framework, workflow, or agent exploration
+    </li>
+
+    <hr />
+
+    <h2>3.0 Users and Use Cases</h2>
+
+    <h3>3.1 Primary Users</h3>
+
+    1. <strong>Architects</strong> Need to compare stacks and identify overlap,
+    gaps, and governance implications. 2. <strong>Engineers</strong> Need to
+    understand where tools sit and which layer is failing. 3.
+    <strong>Technical leaders / innovation leads</strong> Need to explain
+    architecture and defend adoption decisions. 4.
+    <strong>Researchers / buyers</strong> Need to compare Azure-native vs
+    aftermarket solutions. 5. <strong>Content audience</strong>
+    Need a visual, engaging, memorable way to learn the model.
+
+    <h3>3.2 Core Use Cases</h3>
+
+    <li>
+      Compare Azure AI Foundry against Paperclip + Kotana + other additions
+    </li>
+    <li>Explore how a product spans multiple strata</li>
+    <li>Filter all products that touch L4 and Governance Axis</li>
+    <li>Drill into a stratum and expand down to primitives</li>
+    <li>Swap category from frameworks to agents, workflows, or skills</li>
+    <li>Compare alternative reference frameworks side by side</li>
+    <li>
+      Identify whether a product is acting as substrate, construct producer, or
+      axis-enforcer
+    </li>
+
+    <hr />
+
+    <h2>4.0 Product Scope</h2>
+
+    <h3>4.1 In Scope for MVP</h3>
+
+    <li>Canonical {a}OS stack visualization</li>
+    <li>
+      Multi-entity browser: products, frameworks, agents, workflows, skills
+    </li>
+    <li>Drilldown explorer from Stratum to Primitive</li>
+    <li>Compare mode for 2–4 items</li>
+    <li>Filtering system</li>
+    <li>Classification model with primary / secondary strata and axis roles</li>
+    <li>Product detail pages</li>
+    <li>Framework detail pages</li>
+    <li>Evidence / rationale panels</li>
+    <li>Relationship visualization between selected objects</li>
+
+    <h3>4.2 Out of Scope for MVP</h3>
+
+    <li>User accounts / social features</li>
+    <li>Crowd-sourced public editing</li>
+    <li>Fully automated classification from scraped web data</li>
+    <li>Billing / subscriptions</li>
+    <li>Real-time usage telemetry from third-party tools</li>
+    <li>AI-generated architecture recommendations without human review</li>
+
+    <h3>4.3 Phase 2 Candidates</h3>
+
+    <li>Saved comparison sets</li>
+    <li>Team workspaces</li>
+    <li>Framework scoring and weighting system</li>
+    <li>Scenario-based evaluation mode</li>
+    <li>AI-assisted classification suggestions</li>
+    <li>Public submission pipeline with moderation</li>
+
+    <hr />
+
+    <h2>5.0 Core Concept Model</h2>
+
+    <h3>5.1 Canonical Terms</h3>
+
+    <li><strong>Stratum</strong> = top-level layer in the stack</li>
+    <li>
+      <strong>Axis</strong> = cross-cutting concern intersecting multiple strata
+    </li>
+    <li>
+      <strong>Substrate</strong> = tools/frameworks/systems operating in a
+      stratum
+    </li>
+    <li>
+      <strong>Construct</strong> = meaningful artifact/state produced by a
+      substrate
+    </li>
+    <li>
+      <strong>Primitive</strong> = smallest atomic unit inside a construct
+    </li>
+
+    <h3>5.2 Entity Types</h3>
+
+    The app must support multiple top-level entity types using the same
+    underlying model:
+
+    <li>Products</li>
+    <li>Frameworks</li>
+    <li>Agents</li>
+    <li>Workflows</li>
+    <li>Skills</li>
+    <li>Axes</li>
+    <li>Strata</li>
+    <li>Substrates</li>
+    <li>Constructs</li>
+    <li>Primitives</li>
+
+    <h3>5.3 Classification Rules</h3>
+
+    Each product or entity may have:
+
+    <li>one <strong>primary stratum</strong></li>
+    <li>zero or more <strong>secondary strata</strong></li>
+    <li>zero or more <strong>axis roles</strong></li>
+    <li>one or more <strong>capabilities</strong></li>
+    <li>one or more <strong>constructs produced / governed</strong></li>
+    <li>one or more <strong>primitives touched / governed</strong></li>
+    <li>confidence score</li>
+    <li>rationale</li>
+    <li>evidence links / notes</li>
+
+    <hr />
+
+    <h2>6.0 UX Model</h2>
+
+    <h3>6.1 Primary Interaction Concept</h3>
+
+    The app should feel like a <strong>progressive morphing explorer</strong>.
+    Users can start from a high-level stack, then click deeper and transform the
+    interface into more detailed views without switching mental context.
+
+    <h3>6.2 Key UX Pattern</h3>
+
+    <strong>Progressive Drilldown Explorer</strong>
+
+    <em>Cognitive rationale:</em> The 4-level hierarchy (Stratum → Substrate →
+    Construct → Primitive) maps to Cowan's 4±1 working memory limit. Each level
+    is a meaningful chunk — users never see more than one hierarchy level at
+    once unless they explicitly expand. See 6.5.4 (Chunking) and 6.5.6
+    (Progressive Disclosure) for enforcement rules. User flow: 1. Start at stack
+    or category view 2. Click a Stratum 3. Expand into Substrates 4. Expand a
+    Substrate into Constructs 5. Expand a Construct into Primitives 6. Layer on
+    filters, comparisons, and alternate framework views This should not feel
+    like navigating to a different page every time. It should feel like the UI
+    <strong>unfolds deeper</strong>.
+
+    <h3>6.3 Desired Interaction Modes</h3>
+
+    <strong>MVP (ship these three):</strong>
+
+    1. <strong>Stack Mode</strong> Classic 7-stratum vertical model 2.
+    <strong>Accordion Mode</strong> Expand strata into
+    substrate/construct/primitive rows 3. <strong>Compare Mode</strong>
+    Side-by-side comparison of selected products/frameworks/entities
+
+    <strong>Phase 2 (add these after MVP proves the core):</strong>
+
+    1. <strong>Map Mode</strong> Multi-layer, multi-product span view showing
+    overlaps and coverage 2. <strong>Category Mode</strong> Top-level toggle
+    between Products, Frameworks, Agents, Workflows, Skills 3.
+    <strong>Axis Mode</strong>
+    Show how Governance &amp; Trust and Observability &amp; Evaluation cut
+    across selected items
+
+    <h3>6.4 Top Navigation / Mode Buttons</h3>
+
+    At the top of the app, include color-coded pill buttons or segmented tabs
+    for:
+
+    <li>Products</li>
+    <li>Frameworks</li>
+    <li>Workflows</li>
+    <li>Compare</li>
+    <li>Axes</li>
+    <li>Strata</li>
+
+    <strong>MVP constraint:</strong> Only show entity types with populated
+    content. Agents and Skills buttons appear greyed out or hidden until Phase 2
+    content is seeded. Never show 8 buttons with 3 populated — it signals an
+    empty product. These must be globally accessible and instantly switch the
+    object lens while preserving filters where appropriate.
+
+    <h3>6.5 UX Patterns <em>(informed by ui-patterns.com)</em></h3>
+
+    The following patterns are required or strongly recommended. Each maps to a
+    known UX pattern with documented cognitive rationale. #### 6.5.1 Breadcrumbs
+    <em>(Navigation)</em>
+
+    Every drilldown state must show a clickable breadcrumb trail:
+
+    <pre>
 {a}OS Stack → L4 Orchestration &amp; Decisioning → Workflow Engine → Execution Graph → node_id
-</pre>
-
-<strong>Rules:</strong>
-<li>Always visible in main canvas header during drilldown</li>
-<li>Each segment is clickable — user can jump back to any level</li>
-<li>Breadcrumb updates in-place during morphing transitions (no page reload)</li>
-<li>Compare mode shows one breadcrumb per compared item</li>
-
-#### 6.5.2 Blank Slate <em>(Onboarding)</em>
-
-Every container that can be empty must have a purposeful empty state:
-
-<tr><td>Container | Blank Slate Content |</td></tr>
-|-----------|-------------------|
-<tr><td>Compare basket (0 items) | "Add products to compare — click the + on any product card" + illustration |</td></tr>
-<tr><td>Search (no results) | "No matches for '{query}' — try browsing by stratum or filtering by category" |</td></tr>
-<tr><td>Filter results (0 matches) | "No products match these filters — [clear filters] or [broaden search]" |</td></tr>
-<tr><td>Stratum with no products seeded | "This stratum has no classified products yet — [contribute a mapping]" (Phase 2) |</td></tr>
-
-<strong>Rule:</strong> Never show an empty white/black box. Every empty state must explain what belongs there and how to fill it.
-
-#### 6.5.3 Guided Tour / Coachmarks <em>(Onboarding)</em>
-
-<strong>MVP:</strong> First-visit coachmark sequence (dismissable, max 4 steps):
-
-1. "This is the {a}OS reference stack — 7 strata from Experience to Infrastructure"
-2. "Click any stratum to drill into substrates, constructs, and primitives"
-3. "Add products to your compare basket to see them side by side"
-4. "Use filters to narrow by vendor, deployment model, or axis"
-
-<strong>Rules:</strong>
-<li>Shown once per browser (localStorage flag)</li>
-<li>Skippable with "Skip tour" link on first step</li>
-<li>Each coachmark highlights the relevant UI region with a spotlight mask</li>
-<li>Never blocks interaction — user can click through at any time</li>
-
-<strong>Phase 2:</strong> Context-sensitive coachmarks that trigger on first use of new features (compare mode, axis overlay, framework switch).
-
-#### 6.5.4 Chunking <em>(Cognition / Perception)</em>
-
-The Stratum → Substrate → Construct → Primitive hierarchy is itself a chunking pattern — it breaks a complex system into 4 nested levels that match human working memory limits (Miller's 7±2 / Cowan's 4±1).
-
-<strong>UI enforcement:</strong>
-<li>Never show more than one hierarchy level expanded at a time by default (user can manually expand multiple, but auto-expand collapses siblings)</li>
-<li>Each level visually nests with indentation + progressive size reduction</li>
-<li>Substrate count per stratum should target 3-7 visible items before "show more" truncation</li>
-<li>Count badges on collapsed items ("12 substrates", "4 constructs") give scale without overwhelming</li>
-
-#### 6.5.5 Recognition over Recall <em>(Cognition)</em>
-
-Users should never need to memorize ontology vocabulary to use the app.
-
-<strong>Rules:</strong>
-<em> Stratum names always appear with their boundary question as a subtitle (e.g., "L4 — Orchestration &amp; Decisioning" / </em>What happens next, in what order, with which agent?*)
-<li>Vocabulary terms (Stratum, Axis, Substrate, Construct, Primitive) show tooltip definitions on first hover</li>
-<li>Entity type icons are consistent and always paired with text labels — no icon-only navigation</li>
-<li>Filter labels use plain language with ontology term in parentheses where needed</li>
-
-#### 6.5.6 Progressive Disclosure <em>(Cognition)</em>
-
-<strong>Rules (formalized):</strong>
-<li>Default view: 7 strata as collapsed cards — no substrates visible</li>
-<li>First click: expand one stratum → show substrates</li>
-<li>Second click: expand one substrate → show constructs</li>
-<li>Third click: expand one construct → show primitives</li>
-<li>Detail panels (rationale, evidence, confidence) are always behind a "Show details" affordance, never shown on first render</li>
-<li>Filters start with 4 visible filter groups; "More filters" reveals the full set</li>
-<li>Compare mode starts with coverage heatmap; "Detailed comparison" reveals construct/primitive-level diff</li>
-
-#### 6.5.7 Morphing Controls <em>(Interaction)</em>
-
-Formalizes Rule 11.4 with specific pattern guidance:
-
-<li>When a user clicks a stratum, the stratum card morphs into an expanded container (same DOM element, animated) — no route change</li>
-<li>When compare mode is activated, selected cards slide and resize into comparison columns</li>
-<li>Mode switches (Stack → Accordion → Compare) should cross-fade content while maintaining the header and breadcrumb — never a full page flash</li>
-<li>Entity-type switches (Products → Frameworks) preserve scroll position and filter state</li>
-
-#### 6.5.8 Favorites <em>(Personalization — Phase 2)</em>
-
-<li>Users can star/bookmark products and strata</li>
-<li>Favorited items appear in a "Favorites" quick-access section in the left rail</li>
-<li>Favorites persist in localStorage (MVP) or user profile (Phase 2 with accounts)</li>
-
-#### 6.5.9 Keyboard Shortcuts <em>(Interaction)</em>
-
-<tr><td>Shortcut | Action |</td></tr>
-|----------|--------|
-<tr><td><code>/</code> | Focus global search |</td></tr>
-<tr><td><code>Esc</code> | Close detail panel / exit compare / collapse current drilldown |</td></tr>
-<tr><td><code>↑</code> <code>↓</code> | Navigate between strata or list items |</td></tr>
-<tr><td><code>→</code> | Expand / drill deeper |</td></tr>
-<tr><td><code>←</code> | Collapse / drill up |</td></tr>
-<tr><td><code>c</code> | Toggle compare mode |</td></tr>
-<tr><td><code>1</code>–<code>7</code> | Jump to stratum L1–L7 |</td></tr>
-<tr><td><code>?</code> | Show keyboard shortcut overlay |</td></tr>
-
-<strong>Rules:</strong>
-<li>Shortcuts only active when no text input is focused</li>
-<li>Shortcut overlay (triggered by <code>?</code>) uses a modal cheat-sheet — same pattern as GitHub, Linear, Notion</li>
-
-#### 6.5.10 Curiosity / Information Gaps <em>(Engagement)</em>
-
-Use strategic information gaps to pull users deeper:
-
-<li>Product cards show primary stratum + "spans N strata" — user must click to see which ones</li>
-<li>Compare heatmap shows overlap count — user must expand to see specific construct-level overlap</li>
-<li>Stratum cards show substrate count badge — user must expand to see the list</li>
-<li>"3 disputed classifications" tag on a product → user clicks to see the debates</li>
-
-<strong>Rule:</strong> Tease the count or one interesting fact; never hide critical navigation or classification data behind curiosity traps.
-
-#### 6.5.11 Feedback Loops <em>(Trust)</em>
-
-Classification confidence is a feedback loop between the system and the user's trust:
-
-<li>High confidence (≥0.8): solid badge, no qualifier</li>
-<li>Medium confidence (0.5–0.79): badge with "~" prefix, tooltip shows rationale</li>
-<li>Low confidence (&lt;0.5): dashed badge with "?" icon, rationale panel auto-visible</li>
-<li>Disputed: amber border, "alternate interpretation" link visible without click</li>
-
-<h3>6.6 Primary Layout Structure</h3>
-
-<strong>Header</strong>
-
-<li>product name / logo</li>
-<li>search bar</li>
-<li>entity-type mode buttons</li>
-<li>framework selector</li>
-<li>compare basket</li>
-<li>breadcrumb trail (visible during drilldown — see 6.5.1)</li>
-
-<strong>Left Rail</strong>
-
-<li>strata list</li>
-<li>axes list</li>
-<li>saved filters</li>
-<li>quick toggles</li>
-
-<strong>Main Canvas</strong>
-
-<li>dynamic interactive explorer</li>
-<li>stack / accordion / compare / map rendering area</li>
-
-<strong>Right Rail</strong>
-
-<li>details panel</li>
-<li>rationale / evidence</li>
-<li>selected item metadata</li>
-<li>overlap notes</li>
-
-<hr>
-
-<h2>7.0 Core Screens</h2>
-
-<h3>7.1 Home / Explorer Screen</h3>
-
-Purpose:
-Introduce the stack and let users start from any stratum or entity type.
-
-Must include:
-
-<li>canonical 7-stratum stack</li>
-<li>axis overlay toggle</li>
-<li>entity-type switcher</li>
-<li>featured products / frameworks</li>
-<li>compare basket entry point</li>
-<li><strong>first-visit guided tour</strong> (coachmark sequence — see 6.5.3)</li>
-<li><strong>blank slate for empty compare basket</strong> (see 6.5.2)</li>
-
-<h3>7.2 Stratum Detail Screen</h3>
-
-Purpose:
-Deep dive into one stratum.
-
-Must include:
-
-<li>definition</li>
-<li>boundary question</li>
-<li>substrates</li>
-<li>constructs</li>
-<li>primitives</li>
-<li>related products</li>
-<li>axis interactions</li>
-<li>common failures</li>
-
-<h3>7.3 Product Detail Screen</h3>
-
-Purpose:
-Classify one product against the full ontology.
-
-Must include:
-
-<li>summary</li>
-<li>primary / secondary strata</li>
-<li>axis roles</li>
-<li>capabilities</li>
-<li>constructs produced / governed</li>
-<li>primitives touched / governed</li>
-<li>overlap notes</li>
-<li>confidence / rationale</li>
-<li>related products</li>
-
-<h3>7.4 Compare Screen</h3>
-
-Purpose:
-Compare 2–4 products or frameworks on equal footing.
-
-Must include:
-
-<li>layer coverage heatmap</li>
-<li>axis role comparison</li>
-<li>constructs/primitives overlap table</li>
-<li>maturity / deployment / ownership tags</li>
-<li>gap and overlap summary</li>
-<li><strong>blank slate when basket has &lt;2 items</strong> ("Add at least 2 products to compare" — see 6.5.2)</li>
-
-<h3>7.5 Framework Comparison Screen — PHASE 2</h3>
-
-Purpose:
-Compare {a}OS to other reference frameworks.
-
-<strong>Phase gate:</strong> This screen requires at least two fully defined frameworks. MVP ships with {a}OS only. Build this when the second framework mapping is complete.
-
-Must include:
-
-<li>framework definitions</li>
-<li>layer count / ontology terms</li>
-<li>coverage mapping</li>
-<li>where concepts collapse or differ</li>
-<li>normalized translation matrix</li>
-
-<hr>
-
-<h2>8.0 Functional Requirements</h2>
-
-<h3>8.1 Explorer Requirements</h3>
-
-<li>User can click a stratum to expand it</li>
-<li>User can click into substrate, construct, and primitive levels</li>
-<li>User can collapse back upward without losing context</li>
-<li>Breadcrumb trail must update in real time during drilldown (see 6.5.1)</li>
-<li>Explorer state must support multiple expanded branches</li>
-<li>Explorer must visually distinguish primary vs secondary relationships</li>
-
-<h3>8.2 Filtering Requirements</h3>
-
-User can filter by:
-
-<li>entity type</li>
-<li>stratum</li>
-<li>axis</li>
-<li>substrate type</li>
-<li>deployment model</li>
-<li>vendor</li>
-<li>open source vs proprietary</li>
-<li>local vs cloud vs hybrid</li>
-<li>maturity</li>
-<li>confidence score</li>
-<li>category tags</li>
-
-<h3>8.3 Comparison Requirements</h3>
-
-<li>User can add items to a compare basket</li>
-<li>User can compare 2–4 items at once</li>
-<li>System must normalize comparisons using shared ontology fields</li>
-<li>Comparison must highlight overlap, unique coverage, and gaps</li>
-<li>Comparison must work across entity types when valid</li>
-
-<h3>8.4 Framework Mapping Requirements</h3>
-
-<li>System must support multiple frameworks, not just {a}OS</li>
-<li>Every non-{a}OS framework must be mappable to canonical ontology fields</li>
-<li>System must support translation tables between frameworks</li>
-<li>User must be able to overlay alternative frameworks on top of the explorer</li>
-
-<h3>8.5 Evidence Requirements</h3>
-
-<li>Each classification placement must support rationale text</li>
-<li>Each placement may optionally support evidence links, notes, or quotes</li>
-<li>UI must expose confidence and disputed classifications</li>
-
-<h3>8.6 Search Requirements</h3>
-
-<li>Global search across products, frameworks, agents, workflows, skills, and terms</li>
-<li>Search must support partial matches, tags, and ontology terms</li>
-
-<hr>
-
-<h2>9.0 Information Architecture</h2>
-
-<h3>9.1 Core Data Objects</h3>
-
-1. <strong>Entity</strong>
-   Base object for product/framework/agent/workflow/skill
-
-2. <strong>Placement</strong>
-   Relationship between entity and stratum/axis
-
-3. <strong>Capability</strong>
-   Named function or feature
-
-4. <strong>Construct Mapping</strong>
-   Link between entity or substrate and constructs
-
-5. <strong>Primitive Mapping</strong>
-   Link between construct and primitives
-
-6. <strong>Framework</strong>
-   Alternate layer model or comparison taxonomy
-
-7. <strong>Evidence</strong>
-   Rationale, notes, links, confidence data
-
-<h3>9.2 Suggested Schema Shape</h3>
-
-<strong>Entity</strong>
-
-<li>id</li>
-<li>type</li>
-<li>name</li>
-<li>slug</li>
-<li>summary</li>
-<li>vendor</li>
-<li>tags[]</li>
-<li>deployment_modes[]</li>
-<li>maturity</li>
-<li>open_source</li>
-<li>last_verified_at</li>
-
-<strong>Placement</strong>
-
-<li>id</li>
-<li>entity_id</li>
-<li>target_type: stratum | axis | substrate | construct | primitive</li>
-<li>target_id</li>
-<li>role_type: primary | secondary | cross_cutting | compared_to</li>
-<li>confidence</li>
-<li>rationale</li>
-
-<strong>Capability</strong>
-
-<li>id</li>
-<li>entity_id</li>
-<li>name</li>
-<li>description</li>
-<li>mapped_strata[]</li>
-<li>mapped_axes[]</li>
-
-<strong>Evidence</strong>
-
-<li>id</li>
-<li>placement_id</li>
-<li>source_type</li>
-<li>source_label</li>
-<li>source_url</li>
-<li>excerpt</li>
-<li>note</li>
-
-<hr>
-
-<h2>10.0 Visual System</h2>
-
-<h3>10.1 UI Character</h3>
-
-Target feel:
-
-<li>architectural</li>
-<li>elegant</li>
-<li>modern</li>
-<li>cinematic — think Linear's dot-grid animations, Raycast's glass effects, Artificial Analysis's floating card depth. Not "flashy SaaS marketing." Cinematic means physical simulation, staggered reveals, atmosphere through negative space.</li>
-<li>not toy-like</li>
-<li>not dashboard sludge</li>
-
-<strong>Color mode:</strong> Dark-first. Near-black foundation (<code>rgb(7-10, 9-12, 10-14)</code>), indigo-to-blue accent gradient, 4-level text opacity hierarchy (primary white → quaternary gray). Light mode supported but dark is the default — this audience lives in dark terminals and IDEs.
-
-<h3>10.2 Visual Principles</h3>
-
-<li>Stable vertical hierarchy for the stack</li>
-<li>Motion used for orientation, not decoration</li>
-<li>Multiple selection states must remain readable</li>
-<li>Filters must feel powerful, not overwhelming</li>
-<li>Color should communicate type and role, not just aesthetics</li>
-
-<h3>10.3 Color System</h3>
-
-Use distinct but controlled colors for the main entity types:
-
-<li>Products</li>
-<li>Frameworks</li>
-<li>Agents</li>
-<li>Workflows</li>
-<li>Skills</li>
-<li>Axes</li>
-<li>Strata</li>
-
-Each stratum should have its own stable color identity.
-Each axis should have a distinct overlay style.
-
-<h3>10.4 Motion Patterns</h3>
-
-<li>Expand / collapse morph (Framer Motion <code>layoutId</code> + <code>AnimatePresence</code>)</li>
-<li>Layer highlight on hover (Aceternity spotlight card effect)</li>
-<li>Span lines for multi-stratum products (Aceternity tracing beams)</li>
-<li>Compare transitions (Framer shared-layout transitions)</li>
-<li>Filter fade / isolate interactions (Framer spring physics + opacity)</li>
-<li>Scroll-triggered layer reveals (GSAP ScrollTrigger, staggered 200ms)</li>
-<li>Aurora/gradient shift on stratum focus (Magic UI aurora component)</li>
-<li>Floating dock for compare basket (Aceternity dock component)</li>
-<li>Moving-border buttons for primary CTAs (Aceternity moving-border)</li>
-
-<h3>10.5 Core Visual Components</h3>
-
-<li>Stratum Bar (Aceternity spotlight card + unique aurora color per layer)</li>
-<li>Axis Overlay (Magic UI shimmer border + Framer Motion fade)</li>
-<li>Capability Chip (shadcn badge + Aceternity moving-border on hover)</li>
-<li>Placement Badge (primary = solid glow, secondary = ring outline)</li>
-<li>Expandable Knowledge Row (Framer layout animation + Aceternity expandable card)</li>
-<li>Compare Card (triple-shadow floating card with brand-color ambient glow)</li>
-<li>Confidence Meter (Magic UI animated progress + score label)</li>
-<li>Rationale Panel (shadcn sheet/drawer with slide-in transition)</li>
-<li>Relationship Line / Span Indicator (Aceternity tracing beam between strata)</li>
-
-<hr>
-
-<h2>11.0 Product Behavior Rules</h2>
-
-<h3>11.1 Multi-Placement Rule</h3>
-
-A product may span multiple strata.
-The UI must never force false exclusivity.
-
-<h3>11.2 Primary vs Secondary Rule</h3>
-
-Primary placement must be visually stronger than secondary placement.
-
-<h3>11.3 Dispute Rule</h3>
-
-If a classification is debatable, the UI must show:
-
-<li>confidence</li>
-<li>rationale</li>
-<li>alternate interpretations</li>
-
-<h3>11.4 Morph Rule</h3>
-
-When expanding from stratum to substrate to construct to primitive, the app should transform the current layout instead of hard switching pages whenever possible.
-
-<h3>11.5 Compare Integrity Rule</h3>
-
-Comparisons must only align fields that are ontologically compatible.
-If two objects cannot be meaningfully compared on a field, show "not comparable" rather than inventing symmetry.
-
-<hr>
-
-<h2>12.0 Technical Architecture</h2>
-
-<h3>12.1 Frontend Stack</h3>
-
-<pre>
+</pre
+    >
+
+    <strong>Rules:</strong>
+    <li>Always visible in main canvas header during drilldown</li>
+    <li>Each segment is clickable — user can jump back to any level</li>
+    <li>
+      Breadcrumb updates in-place during morphing transitions (no page reload)
+    </li>
+    <li>Compare mode shows one breadcrumb per compared item</li>
+
+    #### 6.5.2 Blank Slate <em>(Onboarding)</em>
+
+    Every container that can be empty must have a purposeful empty state:
+
+    <tr>
+      <td>Container | Blank Slate Content |</td>
+    </tr>
+    |-----------|-------------------|
+    <tr>
+      <td>
+        Compare basket (0 items) | "Add products to compare — click the + on any
+        product card" + illustration |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Search (no results) | "No matches for '{query}' — try browsing by
+        stratum or filtering by category" |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Filter results (0 matches) | "No products match these filters — [clear
+        filters] or [broaden search]" |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Stratum with no products seeded | "This stratum has no classified
+        products yet — [contribute a mapping]" (Phase 2) |
+      </td>
+    </tr>
+
+    <strong>Rule:</strong> Never show an empty white/black box. Every empty
+    state must explain what belongs there and how to fill it. #### 6.5.3 Guided
+    Tour / Coachmarks <em>(Onboarding)</em>
+
+    <strong>MVP:</strong> First-visit coachmark sequence (dismissable, max 4
+    steps): 1. "This is the {a}OS reference stack — 7 strata from Experience to
+    Infrastructure" 2. "Click any stratum to drill into substrates, constructs,
+    and primitives" 3. "Add products to your compare basket to see them side by
+    side" 4. "Use filters to narrow by vendor, deployment model, or axis"
+
+    <strong>Rules:</strong>
+    <li>Shown once per browser (localStorage flag)</li>
+    <li>Skippable with "Skip tour" link on first step</li>
+    <li>
+      Each coachmark highlights the relevant UI region with a spotlight mask
+    </li>
+    <li>Never blocks interaction — user can click through at any time</li>
+
+    <strong>Phase 2:</strong> Context-sensitive coachmarks that trigger on first
+    use of new features (compare mode, axis overlay, framework switch). ####
+    6.5.4 Chunking <em>(Cognition / Perception)</em>
+
+    The Stratum → Substrate → Construct → Primitive hierarchy is itself a
+    chunking pattern — it breaks a complex system into 4 nested levels that
+    match human working memory limits (Miller's 7±2 / Cowan's 4±1).
+
+    <strong>UI enforcement:</strong>
+    <li>
+      Never show more than one hierarchy level expanded at a time by default
+      (user can manually expand multiple, but auto-expand collapses siblings)
+    </li>
+    <li>
+      Each level visually nests with indentation + progressive size reduction
+    </li>
+    <li>
+      Substrate count per stratum should target 3-7 visible items before "show
+      more" truncation
+    </li>
+    <li>
+      Count badges on collapsed items ("12 substrates", "4 constructs") give
+      scale without overwhelming
+    </li>
+
+    #### 6.5.5 Recognition over Recall <em>(Cognition)</em>
+
+    Users should never need to memorize ontology vocabulary to use the app.
+
+    <strong>Rules:</strong>
+    <em>
+      Stratum names always appear with their boundary question as a subtitle
+      (e.g., "L4 — Orchestration &amp; Decisioning" / </em
+    >What happens next, in what order, with which agent?*)
+    <li>
+      Vocabulary terms (Stratum, Axis, Substrate, Construct, Primitive) show
+      tooltip definitions on first hover
+    </li>
+    <li>
+      Entity type icons are consistent and always paired with text labels — no
+      icon-only navigation
+    </li>
+    <li>
+      Filter labels use plain language with ontology term in parentheses where
+      needed
+    </li>
+
+    #### 6.5.6 Progressive Disclosure <em>(Cognition)</em>
+
+    <strong>Rules (formalized):</strong>
+    <li>Default view: 7 strata as collapsed cards — no substrates visible</li>
+    <li>First click: expand one stratum → show substrates</li>
+    <li>Second click: expand one substrate → show constructs</li>
+    <li>Third click: expand one construct → show primitives</li>
+    <li>
+      Detail panels (rationale, evidence, confidence) are always behind a "Show
+      details" affordance, never shown on first render
+    </li>
+    <li>
+      Filters start with 4 visible filter groups; "More filters" reveals the
+      full set
+    </li>
+    <li>
+      Compare mode starts with coverage heatmap; "Detailed comparison" reveals
+      construct/primitive-level diff
+    </li>
+
+    #### 6.5.7 Morphing Controls <em>(Interaction)</em>
+
+    Formalizes Rule 11.4 with specific pattern guidance:
+
+    <li>
+      When a user clicks a stratum, the stratum card morphs into an expanded
+      container (same DOM element, animated) — no route change
+    </li>
+    <li>
+      When compare mode is activated, selected cards slide and resize into
+      comparison columns
+    </li>
+    <li>
+      Mode switches (Stack → Accordion → Compare) should cross-fade content
+      while maintaining the header and breadcrumb — never a full page flash
+    </li>
+    <li>
+      Entity-type switches (Products → Frameworks) preserve scroll position and
+      filter state
+    </li>
+
+    #### 6.5.8 Favorites <em>(Personalization — Phase 2)</em>
+
+    <li>Users can star/bookmark products and strata</li>
+    <li>
+      Favorited items appear in a "Favorites" quick-access section in the left
+      rail
+    </li>
+    <li>
+      Favorites persist in localStorage (MVP) or user profile (Phase 2 with
+      accounts)
+    </li>
+
+    #### 6.5.9 Keyboard Shortcuts <em>(Interaction)</em>
+
+    <tr>
+      <td>Shortcut | Action |</td>
+    </tr>
+    |----------|--------|
+    <tr>
+      <td><code>/</code> | Focus global search |</td>
+    </tr>
+    <tr>
+      <td>
+        <code>Esc</code> | Close detail panel / exit compare / collapse current
+        drilldown |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>↑</code> <code>↓</code> | Navigate between strata or list items |
+      </td>
+    </tr>
+    <tr>
+      <td><code>→</code> | Expand / drill deeper |</td>
+    </tr>
+    <tr>
+      <td><code>←</code> | Collapse / drill up |</td>
+    </tr>
+    <tr>
+      <td><code>c</code> | Toggle compare mode |</td>
+    </tr>
+    <tr>
+      <td><code>1</code>–<code>7</code> | Jump to stratum L1–L7 |</td>
+    </tr>
+    <tr>
+      <td><code>?</code> | Show keyboard shortcut overlay |</td>
+    </tr>
+
+    <strong>Rules:</strong>
+    <li>Shortcuts only active when no text input is focused</li>
+    <li>
+      Shortcut overlay (triggered by <code>?</code>) uses a modal cheat-sheet —
+      same pattern as GitHub, Linear, Notion
+    </li>
+
+    #### 6.5.10 Curiosity / Information Gaps <em>(Engagement)</em>
+
+    Use strategic information gaps to pull users deeper:
+
+    <li>
+      Product cards show primary stratum + "spans N strata" — user must click to
+      see which ones
+    </li>
+    <li>
+      Compare heatmap shows overlap count — user must expand to see specific
+      construct-level overlap
+    </li>
+    <li>
+      Stratum cards show substrate count badge — user must expand to see the
+      list
+    </li>
+    <li>
+      "3 disputed classifications" tag on a product → user clicks to see the
+      debates
+    </li>
+
+    <strong>Rule:</strong> Tease the count or one interesting fact; never hide
+    critical navigation or classification data behind curiosity traps. ####
+    6.5.11 Feedback Loops <em>(Trust)</em>
+
+    Classification confidence is a feedback loop between the system and the
+    user's trust:
+
+    <li>High confidence (≥0.8): solid badge, no qualifier</li>
+    <li>
+      Medium confidence (0.5–0.79): badge with "~" prefix, tooltip shows
+      rationale
+    </li>
+    <li>
+      Low confidence (&lt;0.5): dashed badge with "?" icon, rationale panel
+      auto-visible
+    </li>
+    <li>
+      Disputed: amber border, "alternate interpretation" link visible without
+      click
+    </li>
+
+    <h3>6.6 Primary Layout Structure</h3>
+
+    <strong>Header</strong>
+
+    <li>product name / logo</li>
+    <li>search bar</li>
+    <li>entity-type mode buttons</li>
+    <li>framework selector</li>
+    <li>compare basket</li>
+    <li>breadcrumb trail (visible during drilldown — see 6.5.1)</li>
+
+    <strong>Left Rail</strong>
+
+    <li>strata list</li>
+    <li>axes list</li>
+    <li>saved filters</li>
+    <li>quick toggles</li>
+
+    <strong>Main Canvas</strong>
+
+    <li>dynamic interactive explorer</li>
+    <li>stack / accordion / compare / map rendering area</li>
+
+    <strong>Right Rail</strong>
+
+    <li>details panel</li>
+    <li>rationale / evidence</li>
+    <li>selected item metadata</li>
+    <li>overlap notes</li>
+
+    <hr />
+
+    <h2>7.0 Core Screens</h2>
+
+    <h3>7.1 Home / Explorer Screen</h3>
+
+    Purpose: Introduce the stack and let users start from any stratum or entity
+    type. Must include:
+
+    <li>canonical 7-stratum stack</li>
+    <li>axis overlay toggle</li>
+    <li>entity-type switcher</li>
+    <li>featured products / frameworks</li>
+    <li>compare basket entry point</li>
+    <li>
+      <strong>first-visit guided tour</strong> (coachmark sequence — see 6.5.3)
+    </li>
+    <li><strong>blank slate for empty compare basket</strong> (see 6.5.2)</li>
+
+    <h3>7.2 Stratum Detail Screen</h3>
+
+    Purpose: Deep dive into one stratum. Must include:
+
+    <li>definition</li>
+    <li>boundary question</li>
+    <li>substrates</li>
+    <li>constructs</li>
+    <li>primitives</li>
+    <li>related products</li>
+    <li>axis interactions</li>
+    <li>common failures</li>
+
+    <h3>7.3 Product Detail Screen</h3>
+
+    Purpose: Classify one product against the full ontology. Must include:
+
+    <li>summary</li>
+    <li>primary / secondary strata</li>
+    <li>axis roles</li>
+    <li>capabilities</li>
+    <li>constructs produced / governed</li>
+    <li>primitives touched / governed</li>
+    <li>overlap notes</li>
+    <li>confidence / rationale</li>
+    <li>related products</li>
+
+    <h3>7.4 Compare Screen</h3>
+
+    Purpose: Compare 2–4 products or frameworks on equal footing. Must include:
+
+    <li>layer coverage heatmap</li>
+    <li>axis role comparison</li>
+    <li>constructs/primitives overlap table</li>
+    <li>maturity / deployment / ownership tags</li>
+    <li>gap and overlap summary</li>
+    <li>
+      <strong>blank slate when basket has &lt;2 items</strong> ("Add at least 2
+      products to compare" — see 6.5.2)
+    </li>
+
+    <h3>7.5 Framework Comparison Screen — PHASE 2</h3>
+
+    Purpose: Compare {a}OS to other reference frameworks.
+
+    <strong>Phase gate:</strong> This screen requires at least two fully defined
+    frameworks. MVP ships with {a}OS only. Build this when the second framework
+    mapping is complete. Must include:
+
+    <li>framework definitions</li>
+    <li>layer count / ontology terms</li>
+    <li>coverage mapping</li>
+    <li>where concepts collapse or differ</li>
+    <li>normalized translation matrix</li>
+
+    <hr />
+
+    <h2>8.0 Functional Requirements</h2>
+
+    <h3>8.1 Explorer Requirements</h3>
+
+    <li>User can click a stratum to expand it</li>
+    <li>User can click into substrate, construct, and primitive levels</li>
+    <li>User can collapse back upward without losing context</li>
+    <li>
+      Breadcrumb trail must update in real time during drilldown (see 6.5.1)
+    </li>
+    <li>Explorer state must support multiple expanded branches</li>
+    <li>
+      Explorer must visually distinguish primary vs secondary relationships
+    </li>
+
+    <h3>8.2 Filtering Requirements</h3>
+
+    User can filter by:
+
+    <li>entity type</li>
+    <li>stratum</li>
+    <li>axis</li>
+    <li>substrate type</li>
+    <li>deployment model</li>
+    <li>vendor</li>
+    <li>open source vs proprietary</li>
+    <li>local vs cloud vs hybrid</li>
+    <li>maturity</li>
+    <li>confidence score</li>
+    <li>category tags</li>
+
+    <h3>8.3 Comparison Requirements</h3>
+
+    <li>User can add items to a compare basket</li>
+    <li>User can compare 2–4 items at once</li>
+    <li>System must normalize comparisons using shared ontology fields</li>
+    <li>Comparison must highlight overlap, unique coverage, and gaps</li>
+    <li>Comparison must work across entity types when valid</li>
+
+    <h3>8.4 Framework Mapping Requirements</h3>
+
+    <li>System must support multiple frameworks, not just {a}OS</li>
+    <li>
+      Every non-{a}OS framework must be mappable to canonical ontology fields
+    </li>
+    <li>System must support translation tables between frameworks</li>
+    <li>
+      User must be able to overlay alternative frameworks on top of the explorer
+    </li>
+
+    <h3>8.5 Evidence Requirements</h3>
+
+    <li>Each classification placement must support rationale text</li>
+    <li>
+      Each placement may optionally support evidence links, notes, or quotes
+    </li>
+    <li>UI must expose confidence and disputed classifications</li>
+
+    <h3>8.6 Search Requirements</h3>
+
+    <li>
+      Global search across products, frameworks, agents, workflows, skills, and
+      terms
+    </li>
+    <li>Search must support partial matches, tags, and ontology terms</li>
+
+    <hr />
+
+    <h2>9.0 Information Architecture</h2>
+
+    <h3>9.1 Core Data Objects</h3>
+
+    1. <strong>Entity</strong> Base object for
+    product/framework/agent/workflow/skill 2.
+    <strong>Placement</strong> Relationship between entity and stratum/axis 3.
+    <strong>Capability</strong> Named function or feature 4.
+    <strong>Construct Mapping</strong> Link between entity or substrate and
+    constructs 5. <strong>Primitive Mapping</strong> Link between construct and
+    primitives 6. <strong>Framework</strong> Alternate layer model or comparison
+    taxonomy 7. <strong>Evidence</strong>
+    Rationale, notes, links, confidence data
+
+    <h3>9.2 Suggested Schema Shape</h3>
+
+    <strong>Entity</strong>
+
+    <li>id</li>
+    <li>type</li>
+    <li>name</li>
+    <li>slug</li>
+    <li>summary</li>
+    <li>vendor</li>
+    <li>tags[]</li>
+    <li>deployment_modes[]</li>
+    <li>maturity</li>
+    <li>open_source</li>
+    <li>last_verified_at</li>
+
+    <strong>Placement</strong>
+
+    <li>id</li>
+    <li>entity_id</li>
+    <li>target_type: stratum | axis | substrate | construct | primitive</li>
+    <li>target_id</li>
+    <li>role_type: primary | secondary | cross_cutting | compared_to</li>
+    <li>confidence</li>
+    <li>rationale</li>
+
+    <strong>Capability</strong>
+
+    <li>id</li>
+    <li>entity_id</li>
+    <li>name</li>
+    <li>description</li>
+    <li>mapped_strata[]</li>
+    <li>mapped_axes[]</li>
+
+    <strong>Evidence</strong>
+
+    <li>id</li>
+    <li>placement_id</li>
+    <li>source_type</li>
+    <li>source_label</li>
+    <li>source_url</li>
+    <li>excerpt</li>
+    <li>note</li>
+
+    <hr />
+
+    <h2>10.0 Visual System</h2>
+
+    <h3>10.1 UI Character</h3>
+
+    Target feel:
+
+    <li>architectural</li>
+    <li>elegant</li>
+    <li>modern</li>
+    <li>
+      cinematic — think Linear's dot-grid animations, Raycast's glass effects,
+      Artificial Analysis's floating card depth. Not "flashy SaaS marketing."
+      Cinematic means physical simulation, staggered reveals, atmosphere through
+      negative space.
+    </li>
+    <li>not toy-like</li>
+    <li>not dashboard sludge</li>
+
+    <strong>Color mode:</strong> Dark-first. Near-black foundation (<code
+      >rgb(7-10, 9-12, 10-14)</code
+    >), indigo-to-blue accent gradient, 4-level text opacity hierarchy (primary
+    white → quaternary gray). Light mode supported but dark is the default —
+    this audience lives in dark terminals and IDEs.
+
+    <h3>10.2 Visual Principles</h3>
+
+    <li>Stable vertical hierarchy for the stack</li>
+    <li>Motion used for orientation, not decoration</li>
+    <li>Multiple selection states must remain readable</li>
+    <li>Filters must feel powerful, not overwhelming</li>
+    <li>Color should communicate type and role, not just aesthetics</li>
+
+    <h3>10.3 Color System</h3>
+
+    Use distinct but controlled colors for the main entity types:
+
+    <li>Products</li>
+    <li>Frameworks</li>
+    <li>Agents</li>
+    <li>Workflows</li>
+    <li>Skills</li>
+    <li>Axes</li>
+    <li>Strata</li>
+
+    Each stratum should have its own stable color identity. Each axis should
+    have a distinct overlay style.
+
+    <h3>10.4 Motion Patterns</h3>
+
+    <li>
+      Expand / collapse morph (Framer Motion <code>layoutId</code> +
+      <code>AnimatePresence</code>)
+    </li>
+    <li>Layer highlight on hover (Aceternity spotlight card effect)</li>
+    <li>Span lines for multi-stratum products (Aceternity tracing beams)</li>
+    <li>Compare transitions (Framer shared-layout transitions)</li>
+    <li>
+      Filter fade / isolate interactions (Framer spring physics + opacity)
+    </li>
+    <li>
+      Scroll-triggered layer reveals (GSAP ScrollTrigger, staggered 200ms)
+    </li>
+    <li>Aurora/gradient shift on stratum focus (Magic UI aurora component)</li>
+    <li>Floating dock for compare basket (Aceternity dock component)</li>
+    <li>Moving-border buttons for primary CTAs (Aceternity moving-border)</li>
+
+    <h3>10.5 Core Visual Components</h3>
+
+    <li>
+      Stratum Bar (Aceternity spotlight card + unique aurora color per layer)
+    </li>
+    <li>Axis Overlay (Magic UI shimmer border + Framer Motion fade)</li>
+    <li>Capability Chip (shadcn badge + Aceternity moving-border on hover)</li>
+    <li>Placement Badge (primary = solid glow, secondary = ring outline)</li>
+    <li>
+      Expandable Knowledge Row (Framer layout animation + Aceternity expandable
+      card)
+    </li>
+    <li>
+      Compare Card (triple-shadow floating card with brand-color ambient glow)
+    </li>
+    <li>Confidence Meter (Magic UI animated progress + score label)</li>
+    <li>Rationale Panel (shadcn sheet/drawer with slide-in transition)</li>
+    <li>
+      Relationship Line / Span Indicator (Aceternity tracing beam between
+      strata)
+    </li>
+
+    <hr />
+
+    <h2>11.0 Product Behavior Rules</h2>
+
+    <h3>11.1 Multi-Placement Rule</h3>
+
+    A product may span multiple strata. The UI must never force false
+    exclusivity.
+
+    <h3>11.2 Primary vs Secondary Rule</h3>
+
+    Primary placement must be visually stronger than secondary placement.
+
+    <h3>11.3 Dispute Rule</h3>
+
+    If a classification is debatable, the UI must show:
+
+    <li>confidence</li>
+    <li>rationale</li>
+    <li>alternate interpretations</li>
+
+    <h3>11.4 Morph Rule</h3>
+
+    When expanding from stratum to substrate to construct to primitive, the app
+    should transform the current layout instead of hard switching pages whenever
+    possible.
+
+    <h3>11.5 Compare Integrity Rule</h3>
+
+    Comparisons must only align fields that are ontologically compatible. If two
+    objects cannot be meaningfully compared on a field, show "not comparable"
+    rather than inventing symmetry.
+
+    <hr />
+
+    <h2>12.0 Technical Architecture</h2>
+
+    <h3>12.1 Frontend Stack</h3>
+
+    <pre>
 Next.js 15 + TypeScript + Tailwind CSS v4
   + Aceternity UI        --&gt; 200+ cinematic copy-paste components (aurora, lamp, 3D cards, tracing beams, moving borders, floating dock)
   + Magic UI             --&gt; supplemental particle/shimmer/orbit effects (oklch color space)
@@ -743,319 +994,430 @@ Next.js 15 + TypeScript + Tailwind CSS v4
   + GSAP ScrollTrigger   --&gt; scroll-based cinematic choreography, staggered reveal wavefronts, timeline sequences
   + Zustand              --&gt; lightweight state (compare basket, filters, drilldown state)
   + TanStack Query       --&gt; data fetching when moving to API/DB
-</pre>
+</pre
+    >
+
+    <h3>12.1.1 Why This Stack</h3>
+
+    <tr>
+      <td>Layer | Choice | Why |</td>
+    </tr>
+    |-------|--------|-----|
+    <tr>
+      <td>
+        <strong>Cinematic components</strong> | Aceternity UI | 200+ components
+        with built-in 3D effects, aurora backgrounds, lamp glow, tracing beams,
+        moving borders, parallax scroll. Framer Motion core. shadcn-compatible.
+        Next.js + TS + Tailwind native. |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Supplemental effects</strong> | Magic UI | Orbit animations,
+        meteor showers, shimmer borders, ripple effects. oklch color space for
+        perceptually smooth gradients. Copy-paste, non-conflicting with
+        Aceternity. |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>AI/agentic primitives</strong> | assistant-ui | Thread
+        management, tool-call rendering, generative UI, multi-agent interfaces.
+        MCP + Vercel AI SDK + LangChain integrations. Headless — layers cleanly
+        under cinematic visuals. |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Layout animations</strong> | Framer Motion |
+        <code>layoutId</code> for morphing panes,
+        <code>AnimatePresence</code> for enter/exit, spring physics for buttons,
+        shared-layout transitions for drilldown. Already bundled with
+        Aceternity. |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Scroll choreography</strong> | GSAP ScrollTrigger |
+        Timeline-based staggered reveals, scroll-snapped layer transitions,
+        "cinematic entrance" sequences. The industry standard for scroll-driven
+        storytelling. |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Base primitives</strong> | shadcn/ui + Radix | Accessible,
+        unstyled primitives (dialogs, popovers, dropdowns, tabs). Aceternity and
+        Magic UI are built on top of these. |
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>State</strong> | Zustand | Lightweight, URL-syncable, handles
+        compare basket + filter state + drilldown tree without Redux
+        boilerplate. |
+      </td>
+    </tr>
+
+    <h3>12.1.2 Visual Design System</h3>
+
+    <strong>Atmosphere:</strong>
+
+    <li>Near-black foundation: <code>rgb(8, 10, 12)</code> base</li>
+    <li>
+      Indigo-to-blue accent gradient: <code>indigo-600</code> →
+      <code>blue-500</code>
+    </li>
+    <li>
+      4-level text opacity: primary <code>white/90</code>, secondary
+      <code>white/60</code>, tertiary <code>white/40</code>, quaternary
+      <code>white/20</code>
+    </li>
+    <li>
+      Triple-shadow card system: inset highlight (white 10% opacity) + heavy
+      drop shadow (30px blur) + colored ambient glow
+    </li>
+
+    <strong>Cinematic patterns to use:</strong>
+
+    <li>
+      Staggered animation wavefronts for layer reveals (diagonal timing, 200ms
+      stagger)
+    </li>
+    <li>Glassmorphism with physical simulation on hero/overlay panels</li>
+    <li>
+      Aurora/gradient backgrounds on stratum headers (each stratum gets a unique
+      color identity)
+    </li>
+    <li>Moving-border buttons for primary actions</li>
+    <li>Tracing beam connections between related strata in compare mode</li>
+    <li>Floating dock for compare basket (Aceternity's Mac-dock component)</li>
+    <li>Lamp glow effect on active/expanded stratum</li>
+
+    <strong>Design references:</strong>
+
+    <li>
+      Linear (dot-grid animation, opacity-layered depth, hardware-gated effects)
+    </li>
+    <li>Raycast (command palette, WebGL glass, near-black foundation)</li>
+    <li>
+      Artificial Analysis (floating cards, bar charts with brand colors, scatter
+      plots for comparison)
+    </li>
+    <li>
+      Stripe Developer Docs (progressive disclosure, generous negative space)
+    </li>
+
+    <h3>12.1.3 Accessibility + Performance</h3>
 
-<h3>12.1.1 Why This Stack</h3>
+    <li>
+      Hardware-detect animation gating (check
+      <code>navigator.hardwareConcurrency</code> — disable heavy effects on
+      low-end devices)
+    </li>
+    <li><code>prefers-reduced-motion</code> respected on all animations</li>
+    <li>
+      Keyboard navigation for all drilldown, filter, and compare interactions
+    </li>
+    <li>
+      WCAG 2.1 AA contrast ratios on all text (dark mode makes this easier, not
+      harder)
+    </li>
+    <li>
+      Code-split animation libraries — GSAP and Three.js only load on pages that
+      use them
+    </li>
 
-<tr><td>Layer | Choice | Why |</td></tr>
-|-------|--------|-----|
-<tr><td><strong>Cinematic components</strong> | Aceternity UI | 200+ components with built-in 3D effects, aurora backgrounds, lamp glow, tracing beams, moving borders, parallax scroll. Framer Motion core. shadcn-compatible. Next.js + TS + Tailwind native. |</td></tr>
-<tr><td><strong>Supplemental effects</strong> | Magic UI | Orbit animations, meteor showers, shimmer borders, ripple effects. oklch color space for perceptually smooth gradients. Copy-paste, non-conflicting with Aceternity. |</td></tr>
-<tr><td><strong>AI/agentic primitives</strong> | assistant-ui | Thread management, tool-call rendering, generative UI, multi-agent interfaces. MCP + Vercel AI SDK + LangChain integrations. Headless — layers cleanly under cinematic visuals. |</td></tr>
-<tr><td><strong>Layout animations</strong> | Framer Motion | <code>layoutId</code> for morphing panes, <code>AnimatePresence</code> for enter/exit, spring physics for buttons, shared-layout transitions for drilldown. Already bundled with Aceternity. |</td></tr>
-<tr><td><strong>Scroll choreography</strong> | GSAP ScrollTrigger | Timeline-based staggered reveals, scroll-snapped layer transitions, "cinematic entrance" sequences. The industry standard for scroll-driven storytelling. |</td></tr>
-<tr><td><strong>Base primitives</strong> | shadcn/ui + Radix | Accessible, unstyled primitives (dialogs, popovers, dropdowns, tabs). Aceternity and Magic UI are built on top of these. |</td></tr>
-<tr><td><strong>State</strong> | Zustand | Lightweight, URL-syncable, handles compare basket + filter state + drilldown tree without Redux boilerplate. |</td></tr>
+    <h3>12.2 Data Layer Recommendation</h3>
 
-<h3>12.1.2 Visual Design System</h3>
+    Start with structured content + schema validation. Good paths:
 
-<strong>Atmosphere:</strong>
+    <li>local JSON / YAML / MDX content for fast iteration</li>
+    <li>Prisma + Postgres once dynamic editing/querying grows</li>
 
-<li>Near-black foundation: <code>rgb(8, 10, 12)</code> base</li>
-<li>Indigo-to-blue accent gradient: <code>indigo-600</code> → <code>blue-500</code></li>
-<li>4-level text opacity: primary <code>white/90</code>, secondary <code>white/60</code>, tertiary <code>white/40</code>, quaternary <code>white/20</code></li>
-<li>Triple-shadow card system: inset highlight (white 10% opacity) + heavy drop shadow (30px blur) + colored ambient glow</li>
+    <strong>Bridging rule:</strong> JSON content files must mirror the
+    relational schema shape (entity files with embedded placements,
+    capabilities, and evidence arrays — not flat markdown). This makes the
+    migration to Postgres mechanical, not a restructure. Use Zod or a JSON
+    Schema validator to enforce shape from day one.
 
-<strong>Cinematic patterns to use:</strong>
+    <h3>12.3 State Management</h3>
 
-<li>Staggered animation wavefronts for layer reveals (diagonal timing, 200ms stagger)</li>
-<li>Glassmorphism with physical simulation on hero/overlay panels</li>
-<li>Aurora/gradient backgrounds on stratum headers (each stratum gets a unique color identity)</li>
-<li>Moving-border buttons for primary actions</li>
-<li>Tracing beam connections between related strata in compare mode</li>
-<li>Floating dock for compare basket (Aceternity's Mac-dock component)</li>
-<li>Lamp glow effect on active/expanded stratum</li>
+    Needs strong support for:
 
-<strong>Design references:</strong>
+    <li>multi-select</li>
+    <li>deep drilldown state</li>
+    <li>compare basket</li>
+    <li>shared filters</li>
+    <li>mode switching</li>
 
-<li>Linear (dot-grid animation, opacity-layered depth, hardware-gated effects)</li>
-<li>Raycast (command palette, WebGL glass, near-black foundation)</li>
-<li>Artificial Analysis (floating cards, bar charts with brand colors, scatter plots for comparison)</li>
-<li>Stripe Developer Docs (progressive disclosure, generous negative space)</li>
+    Recommended:
 
-<h3>12.1.3 Accessibility + Performance</h3>
+    <li>URL-synced filter state</li>
+    <li>Zustand or equivalent lightweight state layer</li>
+    <li>React Query / TanStack Query if moving to DB/API</li>
 
-<li>Hardware-detect animation gating (check <code>navigator.hardwareConcurrency</code> — disable heavy effects on low-end devices)</li>
-<li><code>prefers-reduced-motion</code> respected on all animations</li>
-<li>Keyboard navigation for all drilldown, filter, and compare interactions</li>
-<li>WCAG 2.1 AA contrast ratios on all text (dark mode makes this easier, not harder)</li>
-<li>Code-split animation libraries — GSAP and Three.js only load on pages that use them</li>
+    <h3>12.4 Search / Indexing</h3>
 
-<h3>12.2 Data Layer Recommendation</h3>
+    <li>local fuzzy search for MVP</li>
+    <li>evolve to indexed structured search later</li>
 
-Start with structured content + schema validation.
-Good paths:
+    <h3>12.5 Rendering Strategy</h3>
 
-<li>local JSON / YAML / MDX content for fast iteration</li>
-<li>Prisma + Postgres once dynamic editing/querying grows</li>
+    <li>SSR or SSG for content-heavy pages</li>
+    <li>client-side interactive explorer for morphing interface</li>
 
-<strong>Bridging rule:</strong> JSON content files must mirror the relational schema shape (entity files with embedded placements, capabilities, and evidence arrays — not flat markdown). This makes the migration to Postgres mechanical, not a restructure. Use Zod or a JSON Schema validator to enforce shape from day one.
+    <hr />
 
-<h3>12.3 State Management</h3>
+    <h2>13.0 Modularity Requirements</h2>
 
-Needs strong support for:
+    <h3>13.1 Must Be Modular By</h3>
 
-<li>multi-select</li>
-<li>deep drilldown state</li>
-<li>compare basket</li>
-<li>shared filters</li>
-<li>mode switching</li>
+    <li>entity type</li>
+    <li>explorer mode</li>
+    <li>filter group</li>
+    <li>framework overlay</li>
+    <li>detail panel type</li>
 
-Recommended:
+    <h3>13.2 Reusable Modules</h3>
 
-<li>URL-synced filter state</li>
-<li>Zustand or equivalent lightweight state layer</li>
-<li>React Query / TanStack Query if moving to DB/API</li>
+    <li>EntityCard</li>
+    <li>StratumExplorer</li>
+    <li>DrilldownAccordion</li>
+    <li>AxisOverlay</li>
+    <li>CompareMatrix</li>
+    <li>FrameworkTranslator</li>
+    <li>FilterPanel</li>
+    <li>EvidencePanel</li>
+    <li>PlacementLegend</li>
 
-<h3>12.4 Search / Indexing</h3>
+    <h3>13.3 Future-Proofing Requirement</h3>
 
-<li>local fuzzy search for MVP</li>
-<li>evolve to indexed structured search later</li>
+    The ontology and UI must allow later addition of:
 
-<h3>12.5 Rendering Strategy</h3>
+    <li>new frameworks</li>
+    <li>new axes</li>
+    <li>new entity types</li>
+    <li>alternate scoring systems</li>
+    <li>scenario-based evaluation layers</li>
+    without requiring major redesign of the explorer core.
 
-<li>SSR or SSG for content-heavy pages</li>
-<li>client-side interactive explorer for morphing interface</li>
+    <hr />
 
-<hr>
+    <h2>14.0 Analytics and Insight Layer</h2>
 
-<h2>13.0 Modularity Requirements</h2>
+    <h3>14.1 Clarification</h3>
 
-<h3>13.1 Must Be Modular By</h3>
+    The product does not need business analytics first. It needs
+    <strong>exploration intelligence</strong>.
 
-<li>entity type</li>
-<li>explorer mode</li>
-<li>filter group</li>
-<li>framework overlay</li>
-<li>detail panel type</li>
+    <h3>14.2 What to Support</h3>
 
-<h3>13.2 Reusable Modules</h3>
+    <li>filter combinations</li>
+    <li>overlap counts</li>
+    <li>coverage summaries</li>
+    <li>gaps by stratum</li>
+    <li>axis intensity by product</li>
+    <li>compare summaries</li>
 
-<li>EntityCard</li>
-<li>StratumExplorer</li>
-<li>DrilldownAccordion</li>
-<li>AxisOverlay</li>
-<li>CompareMatrix</li>
-<li>FrameworkTranslator</li>
-<li>FilterPanel</li>
-<li>EvidencePanel</li>
-<li>PlacementLegend</li>
+    <h3>14.3 Useful Derived Insights</h3>
 
-<h3>13.3 Future-Proofing Requirement</h3>
+    <li>which products span the most strata</li>
+    <li>which strata have the highest overlap density</li>
+    <li>which frameworks collapse distinctions most aggressively</li>
+    <li>which combinations leave major governance or observability gaps</li>
 
-The ontology and UI must allow later addition of:
+    <hr />
 
-<li>new frameworks</li>
-<li>new axes</li>
-<li>new entity types</li>
-<li>alternate scoring systems</li>
-<li>scenario-based evaluation layers</li>
-  without requiring major redesign of the explorer core.
+    <h2>15.0 Scoring and Evaluation Model — PHASE 2</h2>
 
-<hr>
+    <strong>Phase gate:</strong> MVP shows raw classification data (strata,
+    axes, constructs, confidence) without computed scores. Scoring without
+    explicit methodology undermines the evidence-backed principle. Define the
+    rubric, scale (1-5 or 1-10), and weighting system before implementing any
+    computed scores.
 
-<h2>14.0 Analytics and Insight Layer</h2>
+    <h3>15.1 For Products</h3>
 
-<h3>14.1 Clarification</h3>
+    Potential normalized scoring dimensions:
 
-The product does not need business analytics first.
-It needs <strong>exploration intelligence</strong>.
+    <li>stratum coverage breadth</li>
+    <li>governance depth</li>
+    <li>observability depth</li>
+    <li>execution safety</li>
+    <li>deployment flexibility</li>
+    <li>modularity</li>
+    <li>maturity</li>
 
-<h3>14.2 What to Support</h3>
+    <h3>15.2 For Frameworks</h3>
 
-<li>filter combinations</li>
-<li>overlap counts</li>
-<li>coverage summaries</li>
-<li>gaps by stratum</li>
-<li>axis intensity by product</li>
-<li>compare summaries</li>
+    Potential normalized scoring dimensions:
 
-<h3>14.3 Useful Derived Insights</h3>
+    <li>memorability</li>
+    <li>diagnostic clarity</li>
+    <li>boundary precision</li>
+    <li>enterprise governance fit</li>
+    <li>vendor neutrality</li>
+    <li>extensibility</li>
 
-<li>which products span the most strata</li>
-<li>which strata have the highest overlap density</li>
-<li>which frameworks collapse distinctions most aggressively</li>
-<li>which combinations leave major governance or observability gaps</li>
+    <h3>15.3 Rule</h3>
 
-<hr>
+    Scores must always be tied to explicit definitions and visible methodology.
+    No black-box scoring.
 
-<h2>15.0 Scoring and Evaluation Model — PHASE 2</h2>
+    <hr />
 
-<strong>Phase gate:</strong> MVP shows raw classification data (strata, axes, constructs, confidence) without computed scores. Scoring without explicit methodology undermines the evidence-backed principle. Define the rubric, scale (1-5 or 1-10), and weighting system before implementing any computed scores.
+    <h2>16.0 MVP Definition</h2>
 
-<h3>15.1 For Products</h3>
+    <h3>16.1 MVP Must Deliver</h3>
 
-Potential normalized scoring dimensions:
+    <li>canonical {a}OS explorer</li>
+    <li>7 strata</li>
+    <li>2 core axes</li>
+    <li>3 entity types minimum: products, frameworks, workflows</li>
+    <li>drilldown explorer</li>
+    <li>compare basket and compare screen</li>
+    <li>product detail pages</li>
+    <li>filter panel</li>
+    <li>evidence panel</li>
 
-<li>stratum coverage breadth</li>
-<li>governance depth</li>
-<li>observability depth</li>
-<li>execution safety</li>
-<li>deployment flexibility</li>
-<li>modularity</li>
-<li>maturity</li>
+    <h3>16.2 MVP Sample Content Set</h3>
 
-<h3>15.2 For Frameworks</h3>
+    At minimum include:
 
-Potential normalized scoring dimensions:
+    <li>Azure AI Foundry</li>
+    <li>Paperclip</li>
+    <li>Kotana</li>
+    <li>NemoClaw / OpenShell</li>
+    <li>LangGraph</li>
+    <li>CrewAI</li>
+    <li>Mem0</li>
+    <li>Azure AI Search</li>
+    <li>Open Policy Agent</li>
 
-<li>memorability</li>
-<li>diagnostic clarity</li>
-<li>boundary precision</li>
-<li>enterprise governance fit</li>
-<li>vendor neutrality</li>
-<li>extensibility</li>
+    This is enough to prove the ontology and UI across all 7 strata.
 
-<h3>15.3 Rule</h3>
+    <h3>16.3 Content Seeding Estimate</h3>
 
-Scores must always be tied to explicit definitions and visible methodology.
-No black-box scoring.
+    Each product classification requires: primary stratum, secondary strata,
+    axis roles, capabilities, constructs produced/governed, primitives touched,
+    rationale, evidence, and confidence scores.
 
-<hr>
+    <strong>Estimated effort:</strong> 2-4 hours per product for full
+    classification.
+    <strong>9 products = 18-36 hours of content work</strong> before the tool is
+    demo-ready.
 
-<h2>16.0 MVP Definition</h2>
+    <strong>Recommendation:</strong> Seed Azure AI Foundry first (already mapped
+    in <code>02.Vendor-Mappings/</code>). Use it as the template for all
+    subsequent product classifications. Parallelize content seeding with UI
+    development — they are independent workstreams.
 
-<h3>16.1 MVP Must Deliver</h3>
+    <hr />
 
-<li>canonical {a}OS explorer</li>
-<li>7 strata</li>
-<li>2 core axes</li>
-<li>3 entity types minimum: products, frameworks, workflows</li>
-<li>drilldown explorer</li>
-<li>compare basket and compare screen</li>
-<li>product detail pages</li>
-<li>filter panel</li>
-<li>evidence panel</li>
+    <h2>17.0 Success Criteria</h2>
 
-<h3>16.2 MVP Sample Content Set</h3>
+    <h3>17.1 Product Success</h3>
 
-At minimum include:
+    <li>
+      Users can explain what a product does in stack terms faster than before
+    </li>
+    <li>
+      Users can compare Azure-native and aftermarket stacks with less ambiguity
+    </li>
+    <li>
+      Users can identify overlap and missing coverage without external diagrams
+    </li>
+    <li>The model remains stable while adding new products/frameworks</li>
 
-<li>Azure AI Foundry</li>
-<li>Paperclip</li>
-<li>Hermes</li>
-<li>NemoClaw / OpenShell</li>
-<li>LangGraph</li>
-<li>CrewAI</li>
-<li>Mem0</li>
-<li>Azure AI Search</li>
-<li>Open Policy Agent</li>
+    <h3>17.2 UX Success</h3>
 
-This is enough to prove the ontology and UI across all 7 strata.
+    <li>Users can expand from stratum to primitive without getting lost</li>
+    <li>Compare mode is understandable in under 60 seconds</li>
+    <li>Filters feel empowering, not confusing</li>
 
-<h3>16.3 Content Seeding Estimate</h3>
+    <h3>17.3 Architecture Success</h3>
 
-Each product classification requires: primary stratum, secondary strata, axis roles, capabilities, constructs produced/governed, primitives touched, rationale, evidence, and confidence scores.
+    <li>New entity types can be added without redesigning the ontology</li>
+    <li>Alternate frameworks can be overlaid without rewriting the explorer</li>
 
-<strong>Estimated effort:</strong> 2-4 hours per product for full classification.
-<strong>9 products = 18-36 hours of content work</strong> before the tool is demo-ready.
+    <hr />
 
-<strong>Recommendation:</strong> Seed Azure AI Foundry first (already mapped in <code>02.Vendor-Mappings/</code>). Use it as the template for all subsequent product classifications. Parallelize content seeding with UI development — they are independent workstreams.
+    <h2>18.0 Risks</h2>
 
-<hr>
+    <h3>18.1 Product Risks</h3>
 
-<h2>17.0 Success Criteria</h2>
+    <li>ontology becomes too abstract</li>
+    <li>UI becomes graph spaghetti</li>
+    <li>over-modeling slows iteration</li>
+    <li>false confidence in classifications</li>
+    <li>too many top-level modes confuse users</li>
 
-<h3>17.1 Product Success</h3>
+    <h3>18.2 UX Risks</h3>
 
-<li>Users can explain what a product does in stack terms faster than before</li>
-<li>Users can compare Azure-native and aftermarket stacks with less ambiguity</li>
-<li>Users can identify overlap and missing coverage without external diagrams</li>
-<li>The model remains stable while adding new products/frameworks</li>
+    <li>drilldown state becomes hard to manage</li>
+    <li>compare mode becomes cluttered</li>
+    <li>too many filters overwhelm first-time users</li>
 
-<h3>17.2 UX Success</h3>
+    <h3>18.3 Technical Risks</h3>
 
-<li>Users can expand from stratum to primitive without getting lost</li>
-<li>Compare mode is understandable in under 60 seconds</li>
-<li>Filters feel empowering, not confusing</li>
+    <li>poorly normalized data model blocks extensibility</li>
+    <li>hardcoded framework assumptions break alternate overlay support</li>
+    <li>weak state architecture causes brittle interactions</li>
 
-<h3>17.3 Architecture Success</h3>
+    <hr />
 
-<li>New entity types can be added without redesigning the ontology</li>
-<li>Alternate frameworks can be overlaid without rewriting the explorer</li>
+    <h2>19.0 Non-Functional Requirements</h2>
 
-<hr>
+    <li>Fast initial load</li>
+    <li>Smooth transitions</li>
+    <li>Strong keyboard accessibility (full shortcut map defined in 6.5.9)</li>
+    <li>URL-shareable states for filters and compare sets</li>
+    <li>Mobile support for browse mode, desktop-first for compare mode</li>
+    <li>Strong type safety and schema validation</li>
+    <li>Easy content updates by non-developers later</li>
 
-<h2>18.0 Risks</h2>
+    <h3>19.1 Content Authoring Workflow</h3>
 
-<h3>18.1 Product Risks</h3>
+    <strong>MVP:</strong> Product classifications are authored as structured
+    JSON files in the repo. Changes go through PR review. Each product file must
+    validate against the Entity + Placement + Capability schema before merge.
 
-<li>ontology becomes too abstract</li>
-<li>UI becomes graph spaghetti</li>
-<li>over-modeling slows iteration</li>
-<li>false confidence in classifications</li>
-<li>too many top-level modes confuse users</li>
+    <strong>Phase 2:</strong> Admin UI with form-based editing, preview, and
+    publish workflow. Non-developers can update classifications without touching
+    JSON directly.
 
-<h3>18.2 UX Risks</h3>
+    <hr />
 
-<li>drilldown state becomes hard to manage</li>
-<li>compare mode becomes cluttered</li>
-<li>too many filters overwhelm first-time users</li>
+    <h2>20.0 Implementation Recommendation</h2>
 
-<h3>18.3 Technical Risks</h3>
+    <h3>20.1 Build Order</h3>
 
-<li>poorly normalized data model blocks extensibility</li>
-<li>hardcoded framework assumptions break alternate overlay support</li>
-<li>weak state architecture causes brittle interactions</li>
+    1. Ontology schema 2. Explorer shell 3. Stratum drilldown accordion 4.
+    Product detail page template 5. Compare basket + compare screen 6. Filter
+    system 7. Framework overlay support 8. Evidence/rationale support
 
-<hr>
+    <h3>20.2 First Prototype Goal</h3>
 
-<h2>19.0 Non-Functional Requirements</h2>
+    A user should be able to:
 
-<li>Fast initial load</li>
-<li>Smooth transitions</li>
-<li>Strong keyboard accessibility (full shortcut map defined in 6.5.9)</li>
-<li>URL-shareable states for filters and compare sets</li>
-<li>Mobile support for browse mode, desktop-first for compare mode</li>
-<li>Strong type safety and schema validation</li>
-<li>Easy content updates by non-developers later</li>
+    <li>open the stack</li>
+    <li>click L4</li>
+    <li>expand into substrates</li>
+    <li>select Azure AI Foundry and Kotana</li>
+    <li>see where each spans strata</li>
+    <li>compare them side by side</li>
+    <li>understand where Azure-native ends and aftermarket begins</li>
 
-<h3>19.1 Content Authoring Workflow</h3>
+    <hr />
 
-<strong>MVP:</strong> Product classifications are authored as structured JSON files in the repo. Changes go through PR review. Each product file must validate against the Entity + Placement + Capability schema before merge.
+    <h2>21.0 Product Summary One-Liner</h2>
 
-<strong>Phase 2:</strong> Admin UI with form-based editing, preview, and publish workflow. Non-developers can update classifications without touching JSON directly.
-
-<hr>
-
-<h2>20.0 Implementation Recommendation</h2>
-
-<h3>20.1 Build Order</h3>
-
-1. Ontology schema
-2. Explorer shell
-3. Stratum drilldown accordion
-4. Product detail page template
-5. Compare basket + compare screen
-6. Filter system
-7. Framework overlay support
-8. Evidence/rationale support
-
-<h3>20.2 First Prototype Goal</h3>
-
-A user should be able to:
-
-<li>open the stack</li>
-<li>click L4</li>
-<li>expand into substrates</li>
-<li>select Azure AI Foundry and Hermes</li>
-<li>see where each spans strata</li>
-<li>compare them side by side</li>
-<li>understand where Azure-native ends and aftermarket begins</li>
-
-<hr>
-
-<h2>21.0 Product Summary One-Liner</h2>
-
-<strong>{a}OS Explorer is a modular, ontology-driven comparison web app that lets users browse, expand, filter, and compare AI systems from Stratum to Primitive across products, frameworks, agents, workflows, and skills.</strong>
-</body></html>
+    <strong
+      >{a}OS Explorer is a modular, ontology-driven comparison web app that lets
+      users browse, expand, filter, and compare AI systems from Stratum to
+      Primitive across products, frameworks, agents, workflows, and
+      skills.</strong
+    >
+  </body>
+</html>
