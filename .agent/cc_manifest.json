@@ -1,0 +1,14 @@
+{
+  "color": "#f0a500",
+  "label": "aOS",
+  "repo_id": "6.aOS",
+  "icon": "🏗️",
+  "name": "6.aOS",
+  "telemetry": {
+    "otel": {
+      "service_name": "6.aOS",
+      "stream_file": "CRUCIBLE_STREAM.jsonl",
+      "enabled": true
+    }
+  }
+}
