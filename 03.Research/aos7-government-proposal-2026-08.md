@@ -4,7 +4,7 @@
 
 > **Version:** 1.0 draft for founder review · **Date:** 2026-08-01
 > **Companion document:** [aOS7 Technology Stack Whitepaper](./aos7-technology-stack-whitepaper-2026-08.md) (the full 7 stratum tool analysis, 38 jobs, all picks web verified)
-> **Method:** every factual claim in this document was researched with live web search in early August 2026 and adversarially fact checked; corrections were applied before writing. Sections marked LANDING TONIGHT are being produced by the fleet under numbered tickets and integrate on completion.
+> **Method:** every factual claim in this document was researched with live web search in early August 2026 and adversarially fact checked; corrections were applied before writing. Six of the eight fleet support tickets are DELIVERED and linked below; the remaining two are marked LANDING.
 > **Standing rail:** the founder is active duty military. No direct DoD funding path is proposed anywhere in this document. The lane is teaming, subcontracting, mentor protege, and civilian channels, and every ambiguous case is marked FOUNDER DECISION.
 
 ---
@@ -65,9 +65,9 @@ The rules of federal AI buying changed in 2025 and 2026, and each change points 
 | Requirement area | Our posture | Status |
 |---|---|---|
 | NIST AI RMF + 800-53 mapping | Crosswalk of all 7 strata to RMF functions and control families | DELIVERED: [NIST crosswalk](./gov/task-0300-nist-crosswalk.md), 42 mappings plus a 21 entry honest gap register |
-| Supply chain (Section 889, EO 14028, SBOM) | Full component inventory with license and origin per tool; the enforced allowlist as the control | LANDING, task-0301 |
-| Threat model | MITRE ATLAS technique mapping per stratum with named mitigations and honest residual risk | LANDING, task-0302 |
-| Sovereignty profile | Air gap deployment variant per stratum, degraded mode as a feature | LANDING, task-0303 |
+| Supply chain (Section 889, EO 14028, SBOM) | Full component inventory with license and origin per tool; the enforced allowlist as the control | DELIVERED: [supply chain SBOM](./gov/task-0301-supply-chain-sbom.md), 76 components, 123 citations |
+| Threat model | MITRE ATLAS technique mapping per stratum with named mitigations and honest residual risk | DELIVERED: [ATLAS threat model](./gov/task-0302-mitre-atlas-threat-model.md) |
+| Sovereignty profile | Air gap deployment variant per stratum, degraded mode as a feature | DELIVERED: [S0 sovereignty profile](./gov/task-0303-s0-sovereignty-profile.md) |
 | Section 508 | axe-core gate in CI plus VPAT 2.5 skeleton with honest statuses | LANDING, task-0305 |
 | Pilot measurement | 90 day plan measured on the reference model's own axis metrics | DELIVERED: [90 day pilot plan](./gov/task-0306-pilot-plan.md), six metrics with sources and goal bands |
 
