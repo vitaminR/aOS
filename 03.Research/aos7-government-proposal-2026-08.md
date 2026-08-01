@@ -64,12 +64,12 @@ The rules of federal AI buying changed in 2025 and 2026, and each change points 
 
 | Requirement area | Our posture | Status |
 |---|---|---|
-| NIST AI RMF + 800-53 mapping | Crosswalk of all 7 strata to RMF functions and control families | LANDING TONIGHT, task-0300 |
-| Supply chain (Section 889, EO 14028, SBOM) | Full component inventory with license and origin per tool; the enforced allowlist as the control | LANDING TONIGHT, task-0301 |
-| Threat model | MITRE ATLAS technique mapping per stratum with named mitigations and honest residual risk | LANDING TONIGHT, task-0302 |
-| Sovereignty profile | Air gap deployment variant per stratum, degraded mode as a feature | LANDING TONIGHT, task-0303 |
-| Section 508 | axe-core gate in CI plus VPAT 2.5 skeleton with honest statuses | LANDING TONIGHT, task-0305 |
-| Pilot measurement | 90 day plan measured on the reference model's own axis metrics | LANDING TONIGHT, task-0306 |
+| NIST AI RMF + 800-53 mapping | Crosswalk of all 7 strata to RMF functions and control families | DELIVERED: [NIST crosswalk](./gov/task-0300-nist-crosswalk.md), 42 mappings plus a 21 entry honest gap register |
+| Supply chain (Section 889, EO 14028, SBOM) | Full component inventory with license and origin per tool; the enforced allowlist as the control | LANDING, task-0301 |
+| Threat model | MITRE ATLAS technique mapping per stratum with named mitigations and honest residual risk | LANDING, task-0302 |
+| Sovereignty profile | Air gap deployment variant per stratum, degraded mode as a feature | LANDING, task-0303 |
+| Section 508 | axe-core gate in CI plus VPAT 2.5 skeleton with honest statuses | LANDING, task-0305 |
+| Pilot measurement | 90 day plan measured on the reference model's own axis metrics | DELIVERED: [90 day pilot plan](./gov/task-0306-pilot-plan.md), six metrics with sources and goal bands |
 
 Nothing in this table will be claimed as complete until its deliverable exists with evidence. That discipline is itself part of the offer.
 
@@ -97,7 +97,7 @@ We do not out entrench Palantir or out install Microsoft. We sell the thing none
 
 ## 9. Route to market (FOUNDER GATED)
 
-The founder is active duty military, so this proposal recommends no direct DoD award path. The lanes under study are: teaming and subcontracting under primes on vehicles like the VA agentic enterprise agreement, GSA channels including OneGov once product and compliance stories are ready (the CORAS precedent), civilian agency pilots, mentor protege relationships, and consortium membership. The full eligibility and ethics study, including conflict of interest rules for the founder's status, is LANDING TONIGHT under task-0307 and every path in it lands on the founder's desk as a decision, not a recommendation.
+The founder is active duty military, so this proposal recommends no direct DoD award path. The lanes under study are: teaming and subcontracting under primes on vehicles like the VA agentic enterprise agreement, GSA channels including OneGov once product and compliance stories are ready (the CORAS precedent), civilian agency pilots, mentor protege relationships, and consortium membership. The full eligibility and ethics study, including conflict of interest rules for the founder's status, is LANDING under task-0307 and every path in it lands on the founder's desk as a decision, not a recommendation.
 
 ## 10. Source register
 
