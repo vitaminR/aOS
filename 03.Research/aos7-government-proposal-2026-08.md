@@ -33,7 +33,7 @@ The rules of federal AI buying changed in 2025 and 2026, and each change points 
 | OMB M-25-22 (AI acquisition) | Competition, performance tracking, and explicit vendor lock in avoidance | Lock in avoidance is now an official buying rule. A vendor neutral, all open source, self hostable stack answers it directly. |
 | EO 14319 + OMB M-26-04 (LLM procurement) | Vendors must disclose how LLMs are built and trained; open source licensed models sit in an exception | Our open licensed ally model lane has the lighter disclosure path, and the gateway allowlist makes the disclosure story one page. |
 | EO of June 2, 2026 (AI innovation and security) | AI cybersecurity clearinghouse, frontier model benchmarking | Policy is moving from capability claims to measured security proof. We are evidence native. |
-| NIST COSAiS (800-53 AI overlays, in draft) | Control overlays for generative AI and, notably, single agent and multi agent AI systems | The authorization checklist for agentic systems is being written right now. Mapping our strata to the draft overlays buys a head start and a voice in the standard. LANDING TONIGHT under task-0300. |
+| NIST COSAiS (800-53 AI overlays, in draft) | Control overlays for generative AI and, notably, single agent and multi agent AI systems | The authorization checklist for agentic systems is being written right now. Mapping our strata to the draft overlays buys a head start and a voice in the standard. DELIVERED: see the [NIST crosswalk](./gov/task-0300-nist-crosswalk.md). |
 | NIST CAISI + GSA MOU (March 2026) | AI evaluation science enters federal procurement through USAi | Procurement is shifting to measured evaluations. Our gates and traces produce exactly that evidence. |
 
 **The demand is real and it is early.** A March 2026 survey of over 200 government technology executives found 53 percent of agencies exploring or planning agentic AI pilots and another 15 percent already implementing. Pilot stage is when agencies pick their governance, evaluation, and orchestration tooling. The VA signed a 1.6 billion dollar, three year agentic enterprise agreement; the State Department CIO is moving from chatbots to agents; the DOE Genesis Mission treats agents as national scientific infrastructure. And GSA's OneGov channel signed an agentic AI agreement with CORAS in July 2026, proof that a smaller agentic vendor, not just a hyperscaler, can land a direct federal route to market.
@@ -44,7 +44,7 @@ The rules of federal AI buying changed in 2025 and 2026, and each change points 
 
 **Product two: the {a}OS reference implementation.** The working stack described in the companion whitepaper: 38 jobs across the 7 strata, every primary pick open source, ally origin, and self hostable, wired together by three standards (MCP for tools, OpenTelemetry GenAI for proof, AG-UI for human approval). It runs today on one commodity Linux server, and its live deployment operates a real family finance platform and a real multi agent engineering fleet around the clock.
 
-**Accessibility is the design North Star, not a checkbox.** Section 508 binds every federal buyer, yet no incumbent leads its agentic pitch with accessibility. {a}OS is designed toward users who cannot see or operate conventional interfaces, where the agent layer does the acting. An accessibility gate and VPAT skeleton are LANDING TONIGHT under task-0305.
+**Accessibility is the design North Star, not a checkbox.** Section 508 binds every federal buyer, yet no incumbent leads its agentic pitch with accessibility. {a}OS is designed toward users who cannot see or operate conventional interfaces, where the agent layer does the acting. An accessibility gate and VPAT skeleton are landing under task-0305.
 
 ## 4. Win themes
 
@@ -64,12 +64,12 @@ The rules of federal AI buying changed in 2025 and 2026, and each change points 
 
 | Requirement area | Our posture | Status |
 |---|---|---|
-| NIST AI RMF + 800-53 mapping | Crosswalk of all 7 strata to RMF functions and control families | LANDING TONIGHT, task-0300 |
-| Supply chain (Section 889, EO 14028, SBOM) | Full component inventory with license and origin per tool; the enforced allowlist as the control | LANDING TONIGHT, task-0301 |
-| Threat model | MITRE ATLAS technique mapping per stratum with named mitigations and honest residual risk | LANDING TONIGHT, task-0302 |
-| Sovereignty profile | Air gap deployment variant per stratum, degraded mode as a feature | LANDING TONIGHT, task-0303 |
-| Section 508 | axe-core gate in CI plus VPAT 2.5 skeleton with honest statuses | LANDING TONIGHT, task-0305 |
-| Pilot measurement | 90 day plan measured on the reference model's own axis metrics | LANDING TONIGHT, task-0306 |
+| NIST AI RMF + 800-53 mapping | Crosswalk of all 7 strata to RMF functions and control families | DELIVERED: [NIST crosswalk](./gov/task-0300-nist-crosswalk.md), 42 mappings plus a 21 entry honest gap register |
+| Supply chain (Section 889, EO 14028, SBOM) | Full component inventory with license and origin per tool; the enforced allowlist as the control | LANDING, task-0301 |
+| Threat model | MITRE ATLAS technique mapping per stratum with named mitigations and honest residual risk | LANDING, task-0302 |
+| Sovereignty profile | Air gap deployment variant per stratum, degraded mode as a feature | LANDING, task-0303 |
+| Section 508 | axe-core gate in CI plus VPAT 2.5 skeleton with honest statuses | LANDING, task-0305 |
+| Pilot measurement | 90 day plan measured on the reference model's own axis metrics | DELIVERED: [90 day pilot plan](./gov/task-0306-pilot-plan.md), six metrics with sources and goal bands |
 
 Nothing in this table will be claimed as complete until its deliverable exists with evidence. That discipline is itself part of the offer.
 
@@ -97,7 +97,7 @@ We do not out entrench Palantir or out install Microsoft. We sell the thing none
 
 ## 9. Route to market (FOUNDER GATED)
 
-The founder is active duty military, so this proposal recommends no direct DoD award path. The lanes under study are: teaming and subcontracting under primes on vehicles like the VA agentic enterprise agreement, GSA channels including OneGov once product and compliance stories are ready (the CORAS precedent), civilian agency pilots, mentor protege relationships, and consortium membership. The full eligibility and ethics study, including conflict of interest rules for the founder's status, is LANDING TONIGHT under task-0307 and every path in it lands on the founder's desk as a decision, not a recommendation.
+The founder is active duty military, so this proposal recommends no direct DoD award path. The lanes under study are: teaming and subcontracting under primes on vehicles like the VA agentic enterprise agreement, GSA channels including OneGov once product and compliance stories are ready (the CORAS precedent), civilian agency pilots, mentor protege relationships, and consortium membership. The full eligibility and ethics study, including conflict of interest rules for the founder's status, is LANDING under task-0307 and every path in it lands on the founder's desk as a decision, not a recommendation.
 
 ## 10. Source register
 
