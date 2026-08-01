@@ -11,6 +11,20 @@ S0 is a deployment profile across the seven strata, not an eighth stratum. Its c
 
 The profile uses “ally origin” as a program screening rule, not a legal certification. Origin entries below identify the named vendor, steward, or model publisher—not the nationality of every contributor. Procurement, export-control, data-classification, accreditation/RMF, and final origin determinations remain **FOUNDER DECISION / customer authority decision**. This note recommends no direct DoD funding path; any later market-entry motion must use the approved ally/protégé/subcontract lane.
 
+## S0 substitution summary (two-column)
+
+One row per stratum; every substitution is ally origin and self-hostable, with license stated inline. Full citations for each item appear in the detailed table below.
+
+| Stratum | Sovereign substitution (origin; license; all self-hosted) |
+|---|---|
+| **L1 Models & Infrastructure** | llama.cpp (EU; MIT) + Phi-4 Mini weights (US; MIT), Nomic Embed Text v2 MoE (US; Apache-2.0), faster-whisper (France; MIT) over Whisper weights (US; MIT), Kokoro-82M (US; Apache-2.0) |
+| **L2 Knowledge & Memory** | Qdrant (Germany; Apache-2.0), LlamaIndex OSS (US; MIT), Docling (US/IBM; MIT), SQLite (US; public domain), local file floor (first-party; repo license) |
+| **L3 Execution & Interfaces** | FastMCP (US; Apache-2.0), Playwright/MCP (US; Apache-2.0), gVisor (US; Apache-2.0) |
+| **L4 Orchestration & Decisioning** | Pydantic AI (UK; MIT), first-party file-floor task/claim protocol (repo license), OS-native scheduler (ships with the accredited OS) |
+| **L5 Observability & Evaluation** | Langfuse core (Germany; MIT outside `ee`), DeepEval (US; Apache-2.0), LiteLLM community (US; MIT outside enterprise dir), Healthchecks (EU; BSD-3-Clause) |
+| **L6 Governance, Trust & Economics** | Open Policy Agent (CNCF/Linux Foundation; Apache-2.0), NeMo Guardrails (US; Apache-2.0), LLM Guard (US; MIT) |
+| **L7 Experience & Human Interaction** | assistant-ui (US; MIT), AG-UI (US; MIT), Pipecat (US; BSD-2-Clause), Typst (Germany; Apache-2.0) |
+
 ## Connected profile vs sovereign profile
 
 Every sovereign substitution below is self-hostable and has an official license source. Product and model licenses are separate: both must be admitted to the offline bill of materials.
