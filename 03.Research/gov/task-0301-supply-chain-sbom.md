@@ -23,6 +23,7 @@ EO 14028 remains important to the secure-software doctrine and NIST guidance, bu
 - **Inference:** an enforced model allowlist improves supplier control and prevents accidental use of disallowed model providers. That inference does not establish statutory compliance.
 - **Not claimed:** Section 889 compliance, EO 14028 compliance, SSDF conformance, a completed reasonable inquiry, an agency-approved SBOM, product security, FOCI clearance, FedRAMP authorization, or past performance.
 - **Founder decision:** legal counsel and the prime contractor must decide the representations, contract language, evidence-retention period, and whether any agency-specific rule exceeds this baseline.
+- **Acquisition boundary:** this technical artifact recommends no direct Department of Defense funding or procurement path. Any opportunity routing must use the founder-approved protégé/subcontract approach and receive conflict and counsel review because the founder is active-duty military. Any ambiguity is a **FOUNDER DECISION**.
 
 ## 1. Section 889 mapping
 
