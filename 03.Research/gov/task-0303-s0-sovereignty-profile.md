@@ -18,9 +18,9 @@ One row per stratum; every substitution is ally origin and self-hostable, with l
 | Stratum | Sovereign substitution (origin; license; all self-hosted) |
 |---|---|
 | **L1 Models & Infrastructure** | llama.cpp (EU; MIT) + Phi-4 Mini weights (US; MIT), Nomic Embed Text v2 MoE (US; Apache-2.0), faster-whisper (France; MIT) over Whisper weights (US; MIT), Kokoro-82M (US; Apache-2.0) |
-| **L2 Knowledge & Memory** | Qdrant (Germany; Apache-2.0), LlamaIndex OSS (US; MIT), Docling (US/IBM; MIT), SQLite (US; public domain), local file floor (first-party; repo license) |
+| **L2 Knowledge & Memory** | Qdrant (Germany; Apache-2.0), LlamaIndex OSS (US; MIT), Docling (US/IBM; MIT), SQLite (US; public domain, [copyright statement](https://sqlite.org/copyright.html)), local file floor (first-party code in this repository, not a third-party admission item; outbound license selection is a FOUNDER DECISION) |
 | **L3 Execution & Interfaces** | FastMCP (US; Apache-2.0), Playwright/MCP (US; Apache-2.0), gVisor (US; Apache-2.0) |
-| **L4 Orchestration & Decisioning** | Pydantic AI (UK; MIT), first-party file-floor task/claim protocol (repo license), OS-native scheduler (ships with the accredited OS) |
+| **L4 Orchestration & Decisioning** | Pydantic AI (UK; MIT), first-party file-floor task/claim protocol (this repository, not a third-party admission item; outbound license selection is a FOUNDER DECISION), systemd timers for scheduling (Linux Foundation stewardship; [LGPL-2.1-or-later](https://github.com/systemd/systemd/blob/main/LICENSES/README.md), part of the accredited OS baseline, not a separately admitted artifact) |
 | **L5 Observability & Evaluation** | Langfuse core (Germany; MIT outside `ee`), DeepEval (US; Apache-2.0), LiteLLM community (US; MIT outside enterprise dir), Healthchecks (EU; BSD-3-Clause) |
 | **L6 Governance, Trust & Economics** | Open Policy Agent (CNCF/Linux Foundation; Apache-2.0), NeMo Guardrails (US; Apache-2.0), LLM Guard (US; MIT) |
 | **L7 Experience & Human Interaction** | assistant-ui (US; MIT), AG-UI (US; MIT), Pipecat (US; BSD-2-Clause), Typst (Germany; Apache-2.0) |
